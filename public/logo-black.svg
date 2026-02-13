@@ -4,17 +4,39 @@
 <svg
    version="1.1"
    id="svg1"
-   width="367.45831"
-   height="287.71915"
-   viewBox="0 0 367.45832 287.71915"
+   width="453.88953"
+   height="288.36209"
+   viewBox="0 0 453.88953 288.36209"
+   sodipodi:docname="hky-bio-logo-black-v4.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.81841548"
+     inkscape:cx="227.26843"
+     inkscape:cy="144.18105"
+     inkscape:window-width="1440"
+     inkscape:window-height="773"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
   <defs
      id="defs1" />
   <g
      id="g1"
-     transform="translate(-349.73311,-256.31411)">
+     transform="translate(-284.58405,-256.31412)">
     <image
        width="1024"
        height="1024"
@@ -23,13 +45,13 @@
        id="image1"
        style="display:none" />
     <path
-       style="fill:#ffffff;fill-opacity:1"
-       d="m 409.72436,257.2307 h 79.81647 v 106.19507 h 73.3516 V 256.31411 l 79.10873,0.78528 v 192.29843 c -22.82868,13.5072 -43.57277,61.08524 -6.55491,94.63544 l -73.18204,-0.14234 V 441.32515 h -72.72338 v 102.4 H 409.41409 V 440.69693 h -59.68098 l 15.45031,-41.71529 h 236.94303 l 13.19556,-35.68702 -23.64447,0.0555 -6.37749,18.09155 H 409.64107 Z"
+       style="fill:#000000;fill-opacity:1"
+       d="M 344.5753,257.2307 H 447.60736 V 363.42577 H 560.0589 V 256.31411 l 102.71411,0.78528 v 184.69693 c 0,0 -28.2082,20.41945 -32.26357,43.88281 -6.41633,37.1233 15.49638,58.99707 15.49638,58.99707 l -86.57514,-0.78528 V 441.32515 H 447.60736 v 102.4 H 344.26503 V 440.69693 h -59.68098 l 15.45031,-51.98835 h 295.05282 l 13.19556,-25.41396 -13.10846,0.0555 -9.24912,18.09155 H 344.49201 Z"
        id="path7" />
     <ellipse
-       style="fill:#ffffff;fill-opacity:1"
+       style="fill:#000000;fill-opacity:1"
        id="path8"
-       cx="672.90186"
+       cx="694.18402"
        cy="499.98526"
        rx="44.289566"
        ry="43.818401" />
