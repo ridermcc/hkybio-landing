@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "hky.bio | Your game. Your link. Claim it.",
+  title: "hky.bio | Your Hockey Story. One Link.",
   metadataBase: new URL('https://hky.bio'),
   description: "The all-in-one link for elite hockey players. Share your stats, highlights, and journey with scouts, coaches, and fans. Join the 2026 waitlist.",
   keywords: ["hockey", "linktree", "hockey player", "athlete profile", "scouts", "recruiting", "hockey stats"],
@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://hky.bio",
     siteName: "hky.bio",
-    title: "hky.bio | Your game. Your link. Claim it.",
+    title: "hky.bio | Your Hockey Story. One Link.",
     description: "The all-in-one link for elite hockey players. Join 500+ players on the 2026 waitlist.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "hky.bio - Your game. Your link. Claim it.",
+        alt: "hky.bio - Your Hockey Story. One Link.",
       },
     ],
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "hky.bio | Your game. Your link. Claim it.",
+    title: "hky.bio | Your Hockey Story. One Link.",
     description: "The all-in-one link for elite hockey players. Join the 2026 waitlist.",
     images: ["/og-image.png"],
   },
