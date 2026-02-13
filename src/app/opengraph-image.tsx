@@ -15,7 +15,8 @@ export const contentType = 'image/png';
 export default async function Image() {
     try {
         const logoData = await readFile(join(process.cwd(), 'public/logo-black.svg'));
-        const logoSrc = Uint8Array.from(logoData).buffer;
+        const base64Logo = logoData.toString('base64');
+        const logoSrc = `data:image/svg+xml;base64,${base64Logo}`;
 
         return new ImageResponse(
             (
@@ -37,7 +38,7 @@ export default async function Image() {
                 ...size,
             }
         );
-    } catch (e) {
+    } catch (e: any) {
         console.log(`${e.message}`);
         return new Response(`Failed to generate the image`, {
             status: 500,
