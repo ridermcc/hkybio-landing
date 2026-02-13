@@ -23,6 +23,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "hky.bio | Your Hockey Story. One Link.",
+  metadataBase: new URL('https://hky.bio'),
   description: "The all-in-one link for elite hockey players. Share your stats, highlights, and journey with scouts, coaches, and fans. Join the 2026 waitlist.",
   keywords: ["hockey", "linktree", "hockey player", "athlete profile", "scouts", "recruiting", "hockey stats"],
   authors: [{ name: "hky.bio" }],
