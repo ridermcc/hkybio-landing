@@ -66,6 +66,7 @@ export default function ClaimForm() {
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [availableSuggestions, setAvailableSuggestions] = useState<string[]>([]);
     const [infoErrors, setInfoErrors] = useState<Record<string, string>>({});
+    const [copied, setCopied] = useState(false);
     const emailRef = useRef<HTMLInputElement>(null);
     const usernameRef = useRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
@@ -303,35 +304,57 @@ export default function ClaimForm() {
         return (
             <div className="w-full max-w-lg mx-auto animate-fade-up">
                 <div className="glass-card p-8 sm:p-10 text-center relative overflow-hidden">
-                    {/* Background glow for the card */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-ice-500/20 blur-[50px] rounded-full pointer-events-none" />
+                    <div className="relative z-10 flex flex-col items-center gap-6">
 
-                    <div className="relative z-10">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-ice-500/10 border border-ice-500/20 mb-6 shadow-[0_0_15px_rgba(14,165,233,0.15)]">
-                            <svg className="w-8 h-8 text-ice-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
+                        {/* Header Group */}
+                        <div className="flex flex-col items-center gap-2">
+                            <h1 className="text-3xl font-bold text-white tracking-tight">
+                                Handle secured
+                            </h1>
+                            <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-ice-900/30 border border-ice-800/30">
+                                <p className="text-lg text-ice-200 font-mono tracking-wide">
+                                    hky.bio/{formData.username}
+                                </p>
+                            </div>
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-gradient">You&apos;re all set</h1>
-
-                        <div className="bg-hky-surface/50 rounded-xl p-4 border border-white/5 mb-6 inline-block w-full">
-                            <p className="text-hky-muted text-sm uppercase tracking-wider font-medium mb-1">Reserved Handle</p>
-                            <p className="text-white text-xl font-mono">hky.bio/{formData.username}</p>
-                        </div>
-
-                        <p className="text-hky-muted text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-                            We&apos;ve sent a confirmation email to <span className="text-white font-medium">{formData.email}</span>.
-                            <br />
-                            We&apos;ll notify you when your profile is ready to launch.
+                        {/* Confirmation Text */}
+                        <p className="text-hky-muted text-sm leading-relaxed max-w-xs mx-auto">
+                            Confirmation sent to <span className="text-white font-medium">{formData.email}</span>.
                         </p>
 
-                        <button
-                            onClick={() => router.push('/')}
-                            className="btn-primary w-full sm:w-auto min-w-[200px]"
-                        >
-                            Return Home
-                        </button>
+                        {/* CTA Group */}
+                        <div className="w-full flex flex-col items-center gap-3 mt-2">
+                            <p className="text-white text-sm font-medium">
+                                Don&apos;t let the boys get chirped with a bad handle.
+                            </p>
+
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText('https://hky.bio');
+                                    setCopied(true);
+                                    setTimeout(() => setCopied(false), 2000);
+                                }}
+                                className="group relative w-full sm:w-auto min-w-[240px] flex items-center justify-center gap-3 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-ice-500/30 rounded-xl px-5 py-3 transition-all cursor-pointer overflow-hidden"
+                            >
+                                <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer`}></div>
+
+                                <span className="text-hky-muted group-hover:text-white transition-colors font-mono text-base relative z-10">https://hky.bio</span>
+
+                                <div className={`flex items-center justify-center w-6 h-6 rounded-md transition-colors relative z-10 ${copied ? 'bg-green-500/20 text-green-400' : 'bg-white/5 text-hky-muted group-hover:bg-ice-500/20 group-hover:text-white'}`}>
+                                    {copied ? (
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    ) : (
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    )}
+                                </div>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
