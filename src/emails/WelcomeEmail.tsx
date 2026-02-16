@@ -46,7 +46,7 @@ export const WelcomeEmail = ({ firstName, username }: WelcomeEmailProps) => (
                 <Section style={footer}>
                     <Text style={footerText}>
                         hky.bio, Vancouver, BC<br />
-                        <Link href="{{{resend_unsubscribe_url}}}" style={unsubscribeLink}>
+                        <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}" style={unsubscribeLink}>
                             Unsubscribe
                         </Link>
                     </Text>

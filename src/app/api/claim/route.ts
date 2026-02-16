@@ -96,7 +96,7 @@ export async function POST(request: Request) {
                     subject: `Handle reserved: hky.bio/${username}`,
                     html: html,
                     headers: {
-                        'List-Unsubscribe': '<{{{resend_unsubscribe_url}}}>',
+                        'List-Unsubscribe': '<{{{RESEND_UNSUBSCRIBE_URL}}}>',
                     },
                 });
             } catch (emailErr) {
