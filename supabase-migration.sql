@@ -22,3 +22,7 @@ CREATE POLICY "Allow anon to update waitlist"
   FOR UPDATE
   USING (true)
   WITH CHECK (true);
+
+-- Track user subscription and account status
+ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'subscribed';
+-- Options: 'subscribed', 'unsubscribed', 'bounced'

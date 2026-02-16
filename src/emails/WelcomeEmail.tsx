@@ -43,6 +43,13 @@ export const WelcomeEmail = ({ firstName, username }: WelcomeEmailProps) => (
                     <strong>Rider McCallum</strong><br />
                     Co-founder, hky.bio
                 </Text>
+                <Section style={footer}>
+                    <Text style={footerText}>
+                        <Link href="{{{ unsubscribe_url }}}" style={unsubscribeLink}>
+                            Unsubscribe
+                        </Link>
+                    </Text>
+                </Section>
             </Container>
         </Body>
     </Html>
@@ -57,3 +64,6 @@ const reservedSection = { margin: "24px 0", padding: "20px", border: "1px solid 
 const reservedLabel = { fontSize: "12px", color: "#9ca3af", letterSpacing: "1px", margin: "0 0 8px 0" };
 const handle = { fontSize: "24px", fontWeight: "bold", color: "#fff", margin: "0" };
 const signature = { fontSize: "16px", lineHeight: "1.5", marginTop: "32px" };
+const footer = { marginTop: "32px", borderTop: "1px solid #333", paddingTop: "20px" };
+const footerText = { fontSize: "12px", color: "#6b7280", textAlign: "center" as const };
+const unsubscribeLink = { color: "#6b7280", textDecoration: "underline" };

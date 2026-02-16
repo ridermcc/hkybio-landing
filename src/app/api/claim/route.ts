@@ -33,6 +33,23 @@ export async function POST(request: Request) {
 
             if (error) throw error;
 
+            if (error) throw error;
+
+            // Sync with Resend Audience
+            try {
+                const audienceId = process.env.RESEND_WAITLIST_AUDIENCE_ID;
+                if (audienceId) {
+                    await resend.contacts.create({
+                        email: email,
+                        unsubscribed: false,
+                        audienceId: audienceId,
+                    });
+                }
+            } catch (resendError) {
+                console.error('Failed to sync with Resend audience:', resendError);
+                // Non-blocking error, user is still in DB
+            }
+
             return NextResponse.json({ success: true });
         }
 
