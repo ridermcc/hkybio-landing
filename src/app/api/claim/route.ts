@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase-admin';
+import { resend } from '@/lib/resend';
+import { WelcomeEmail } from '@/emails/WelcomeEmail';
+import { render } from '@react-email/render';
 
 export async function POST(request: Request) {
     try {
@@ -63,6 +66,23 @@ export async function POST(request: Request) {
                 .eq('email', email);
 
             if (error) throw error;
+
+            const firstName = full_name.split(' ')[0];
+
+            try {
+                // Explicitly render the email template to avoid implicit React rendering issues
+                const html = await render(WelcomeEmail({ firstName, username }));
+
+                await resend.emails.send({
+                    from: 'Rider <rider@hky.bio>',
+                    to: [email],
+                    subject: `Handle reserved: hky.bio/${username}`,
+                    html: html,
+                });
+            } catch (emailErr) {
+                console.error('Email failed to send:', emailErr);
+                // We don't throw here so the user still sees success in the UI
+            }
 
             return NextResponse.json({ success: true });
         }
