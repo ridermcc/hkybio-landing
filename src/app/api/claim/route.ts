@@ -90,15 +90,14 @@ export async function POST(request: Request) {
                 // Explicitly render the email template to avoid implicit React rendering issues
                 const html = await render(WelcomeEmail({ firstName, username }));
 
-                // Replace the placeholder with the actual Resend variable
-                // We do this to avoid React/Next.js URL-encoding the {{{ handlebars }}} syntax
-                const finalHtml = html.replace('https://hky.bio/unsubscribe_placeholder', '{{{ unsubscribe_url }}}');
-
                 await resend.emails.send({
                     from: 'Rider <rider@hky.bio>',
                     to: [email],
                     subject: `Handle reserved: hky.bio/${username}`,
-                    html: finalHtml,
+                    html: html,
+                    headers: {
+                        'List-Unsubscribe': '<{{{resend_unsubscribe_url}}}>',
+                    },
                 });
             } catch (emailErr) {
                 console.error('Email failed to send:', emailErr);
