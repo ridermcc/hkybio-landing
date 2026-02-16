@@ -14,9 +14,10 @@ import * as React from "react";
 interface WelcomeEmailProps {
     firstName: string;
     username: string;
+    unsubscribeUrl: string;
 }
 
-export const WelcomeEmail = ({ firstName, username }: WelcomeEmailProps) => (
+export const WelcomeEmail = ({ firstName, username, unsubscribeUrl }: WelcomeEmailProps) => (
     <Html>
         <Head />
         <Preview>Your hky.bio handle is reserved!</Preview>
@@ -46,7 +47,7 @@ export const WelcomeEmail = ({ firstName, username }: WelcomeEmailProps) => (
                 <Section style={footer}>
                     <Text style={footerText}>
                         hky.bio, Vancouver, BC<br />
-                        <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}" style={unsubscribeLink}>
+                        <Link href={unsubscribeUrl} style={unsubscribeLink}>
                             Unsubscribe
                         </Link>
                     </Text>

@@ -3,6 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase-admin';
 import { resend } from '@/lib/resend';
 import { WelcomeEmail } from '@/emails/WelcomeEmail';
 import { render } from '@react-email/render';
+import { buildUnsubscribeUrl } from '@/lib/unsubscribe-token';
 
 export async function POST(request: Request) {
     try {
@@ -85,10 +86,11 @@ export async function POST(request: Request) {
             if (error) throw error;
 
             const firstName = full_name.split(' ')[0];
+            const unsubscribeUrl = buildUnsubscribeUrl(email);
 
             try {
                 // Explicitly render the email template to avoid implicit React rendering issues
-                const html = await render(WelcomeEmail({ firstName, username }));
+                const html = await render(WelcomeEmail({ firstName, username, unsubscribeUrl }));
 
                 await resend.emails.send({
                     from: 'Rider <rider@hky.bio>',
@@ -96,7 +98,7 @@ export async function POST(request: Request) {
                     subject: `Handle reserved: hky.bio/${username}`,
                     html: html,
                     headers: {
-                        'List-Unsubscribe': '<{{{RESEND_UNSUBSCRIBE_URL}}}>',
+                        'List-Unsubscribe': `<${unsubscribeUrl}>`,
                     },
                 });
             } catch (emailErr) {
