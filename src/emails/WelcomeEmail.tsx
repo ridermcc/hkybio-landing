@@ -37,7 +37,7 @@ export const WelcomeEmail = ({ firstName, username, unsubscribeUrl }: WelcomeEma
                     turn your digital presence into career opportunities.
                 </Text>
                 <Text style={paragraph}>
-                    I’m stoked to have you with us from the start.
+                    I’m stoked to have you with us from the start. I'll keep you posted as we build.
                 </Text>
                 <Text style={signature}>
                     Best,<br />
