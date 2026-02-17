@@ -1,4 +1,4 @@
-import ClaimUsernameInput from '@/components/ClaimUsernameInput';
+import ClaimUsernameInput from '@/components/marketing/ClaimUsernameInput';
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import ClaimForm from '@/components/ClaimForm';
+import ClaimForm from '@/components/marketing/ClaimForm';
 
 export const metadata = {
     title: 'Claim Your Name | hky.bio',

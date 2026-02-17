@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { resend } from '@/lib/resend';
 import { WelcomeEmail } from '@/emails/WelcomeEmail';
 import { render } from '@react-email/render';

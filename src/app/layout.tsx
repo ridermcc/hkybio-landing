@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import TopNav from '@/components/TopNav';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +15,8 @@ const geistMono = Geist_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1, // Prevents zoom on iOS form focus
-  viewportFit: "cover", // Enables env(safe-area-inset-*) for notch/Dynamic Island
+  maximumScale: 1,
+  viewportFit: "cover",
   themeColor: "#0a0a0f",
 };
 
@@ -28,7 +27,6 @@ export const metadata: Metadata = {
   keywords: ["hockey", "linktree", "hockey player", "athlete profile", "scouts", "recruiting", "hockey stats"],
   authors: [{ name: "hky.bio" }],
 
-  // Open Graph (for Instagram, Facebook, etc.)
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -46,7 +44,6 @@ export const metadata: Metadata = {
     ],
   },
 
-  // Twitter Card
   twitter: {
     card: "summary_large_image",
     title: "hky.bio | Your Hockey Story. One Link.",
@@ -54,23 +51,17 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
 
-  // Apple specific
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "hky.bio",
   },
 
-  // Icons
   icons: {
     icon: "/logo-black.svg",
     apple: "/logo-black.svg",
   },
 };
-
-import Footer from '@/components/Footer';
-
-// ... (keep imports and metadata)
 
 export default function RootLayout({
   children,
@@ -82,15 +73,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="min-h-screen bg-hky-black text-white relative overflow-x-hidden">
-          {/* Background ice glow effects */}
-          <div className="ice-glow -top-40 -right-40" />
-          <div className="ice-glow -bottom-40 -left-40" />
-
-          <TopNav />
-          {children}
-          <Footer />
-        </main>
+        {children}
       </body>
     </html>
   );

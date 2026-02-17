@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyUnsubscribeToken } from '@/lib/unsubscribe-token';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { resend } from '@/lib/resend';
 
 export async function GET(request: NextRequest) {
