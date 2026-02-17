@@ -24,7 +24,7 @@ export default function BrandingPage() {
                             </div>
                             <h3 className={styles.h3} style={{ marginTop: '15px' }}>White Logo</h3>
                             <p className={styles.muted}>Primary asset for dark backgrounds.</p>
-                            <a href="/logo-white.png" download className={styles.downloadBtn}>Download SVG</a>
+                            <a href="/logo-white.png" download className={styles.downloadBtn}>Download PNG</a>
                         </div>
                         <div>
                             <div className={styles.logoBox} style={{ background: '#ffffff' }}>
@@ -32,7 +32,7 @@ export default function BrandingPage() {
                             </div>
                             <h3 className={styles.h3} style={{ marginTop: '15px' }}>Black Logo</h3>
                             <p className={styles.muted}>Used for light-mode icons.</p>
-                            <a href="/logo-black.png" download className={styles.downloadBtn}>Download SVG</a>
+                            <a href="/logo-black.png" download className={styles.downloadBtn}>Download PNG</a>
                         </div>
                     </div>
                 </section>
