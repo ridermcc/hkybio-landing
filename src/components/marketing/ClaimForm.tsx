@@ -320,7 +320,7 @@ export default function ClaimForm() {
 
                         {/* Confirmation Text */}
                         <p className="text-hky-muted text-sm leading-relaxed max-w-xs mx-auto">
-                            Confirmation sent to <span className="text-white font-medium">{formData.email}</span>.
+                            Confirmation sent to <span className="text-white font-medium">{formData.email}</span>. If you don't see it, check your spam folder.
                         </p>
 
                         {/* CTA Group */}
