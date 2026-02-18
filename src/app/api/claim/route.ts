@@ -95,10 +95,11 @@ export async function POST(request: Request) {
                 await resend.emails.send({
                     from: 'Rider <rider@hky.bio>',
                     to: [email],
-                    subject: `Handle reserved: hky.bio/${username}`,
+                    subject: `Welcome to hky.bio!`,
                     html: html,
                     headers: {
                         'List-Unsubscribe': `<${unsubscribeUrl}>`,
+                        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
                     },
                 });
             } catch (emailErr) {
