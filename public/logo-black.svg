@@ -5,38 +5,16 @@
    version="1.1"
    id="svg1"
    width="453.88953"
-   height="288.36209"
-   viewBox="0 0 453.88953 288.36209"
-   sodipodi:docname="hky-bio-logo-black-v4.svg"
-   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   height="287.57681"
+   viewBox="0 0 453.88953 287.57681"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.81841548"
-     inkscape:cx="227.26843"
-     inkscape:cy="144.18105"
-     inkscape:window-width="1440"
-     inkscape:window-height="773"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg1" />
   <defs
      id="defs1" />
   <g
      id="g1"
-     transform="translate(-284.58405,-256.31412)">
+     transform="translate(-284.58405,-256.31411)">
     <image
        width="1024"
        height="1024"
@@ -46,7 +24,7 @@
        style="display:none" />
     <path
        style="fill:#000000;fill-opacity:1"
-       d="M 344.5753,257.2307 H 447.60736 V 363.42577 H 560.0589 V 256.31411 l 102.71411,0.78528 v 184.69693 c 0,0 -28.2082,20.41945 -32.26357,43.88281 -6.41633,37.1233 15.49638,58.99707 15.49638,58.99707 l -86.57514,-0.78528 V 441.32515 H 447.60736 v 102.4 H 344.26503 V 440.69693 h -59.68098 l 15.45031,-51.98835 h 295.05282 l 13.19556,-25.41396 -13.10846,0.0555 -9.24912,18.09155 H 344.49201 Z"
+       d="M 344.5753,257.2307 H 447.60736 V 363.42577 H 560.0589 V 256.31411 l 102.71411,0.78528 V 444.1102 c -48.22529,41.85004 -23.09405,86.94582 -11.44526,99.40906 l -91.89707,0.37166 V 441.32515 H 447.60736 v 102.4 H 344.26503 V 440.69693 h -59.68098 l 15.45031,-41.37212 h 308.04518 l 20.38421,-36.03019 -25.49614,0.0555 -10.10123,18.09155 H 344.49201 Z"
        id="path7" />
     <ellipse
        style="fill:#000000;fill-opacity:1"

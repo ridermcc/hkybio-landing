@@ -3,110 +3,128 @@ import type { Metadata } from 'next';
 import styles from './branding.module.css';
 
 export const metadata: Metadata = {
-    title: "MyHockeyBio Brand Bible",
+    title: "hky.bio — Brand Guide",
 };
 
 export default function BrandingPage() {
     return (
         <div className={styles.root}>
             <div className={styles.container}>
+
+                {/* Header */}
                 <header className={styles.header}>
-                    <h1 className={`${styles.h1} ${styles.textGradient}`}>Brand Bible</h1>
-                    <p style={{ fontSize: '1.25rem', color: 'var(--hky-muted)' }}>The Identity System for <span style={{ color: 'white', fontWeight: 600 }}>hky.bio</span></p>
+                    <p className={styles.subtitle}>Brand Guide</p>
                 </header>
 
-                <section>
-                    <h2 className={styles.h2}>Logo Marks</h2>
-                    <div className={styles.grid}>
-                        <div>
-                            <div className={styles.logoBox} style={{ background: 'var(--hky-dark)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                <img src="/logo-white.png" alt="Primary Logo" />
+                {/* ── Logos ── */}
+                <section className={styles.section}>
+                    <h2 className={styles.sectionTitle}>Logos</h2>
+
+                    <div className={styles.logoGrid}>
+                        {/* White / dark-bg */}
+                        <div className={styles.logoCard}>
+                            <div className={styles.logoPreview} style={{ background: '#0a0a0f' }}>
+                                <img src="/logo-white.svg" alt="White logo" />
                             </div>
-                            <h3 className={styles.h3} style={{ marginTop: '15px' }}>White Logo</h3>
-                            <p className={styles.muted}>Primary asset for dark backgrounds.</p>
-                            <a href="/logo-white.png" download className={styles.downloadBtn}>Download PNG</a>
-                        </div>
-                        <div>
-                            <div className={styles.logoBox} style={{ background: '#ffffff' }}>
-                                <img src="/logo-black.png" alt="Secondary Logo" />
+                            <div className={styles.logoMeta}>
+                                <span className={styles.logoLabel}>White — dark backgrounds</span>
+                                <div className={styles.downloadRow}>
+                                    <a href="/logo-white.svg" download className={styles.dlBtn}>SVG</a>
+                                    <a href="/logo-white.png" download className={styles.dlBtn}>PNG</a>
+                                </div>
                             </div>
-                            <h3 className={styles.h3} style={{ marginTop: '15px' }}>Black Logo</h3>
-                            <p className={styles.muted}>Used for light-mode icons.</p>
-                            <a href="/logo-black.png" download className={styles.downloadBtn}>Download PNG</a>
+                        </div>
+
+                        {/* Black / light-bg */}
+                        <div className={styles.logoCard}>
+                            <div className={styles.logoPreview} style={{ background: '#ffffff' }}>
+                                <img src="/logo-black.svg" alt="Black logo" />
+                            </div>
+                            <div className={styles.logoMeta}>
+                                <span className={styles.logoLabel}>Black — light backgrounds</span>
+                                <div className={styles.downloadRow}>
+                                    <a href="/logo-black.svg" download className={styles.dlBtn}>SVG</a>
+                                    <a href="/logo-black.png" download className={styles.dlBtn}>PNG</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section>
-                    <h2 className={styles.h2}>Signature Gradient</h2>
-                    <div className={styles.card}>
-                        <div className={styles.gradientPreview}></div>
-                        <h3 className={styles.h3}>Primary "For Hockey" Gradient</h3>
-                        <p>The core accent for high-impact headlines and primary text highlights.</p>
-                        <ul className={styles.muted}>
-                            <li><strong>Start Color:</strong> <code className={styles.code}>#0284c7</code> (Ice-600)</li>
-                            <li><strong>End Color:</strong> <code className={styles.code}>#075985</code> (Ice-800)</li>
-                            <li><strong>Angle:</strong> 135deg</li>
-                        </ul>
-                        <p><strong>Tailwind Class:</strong> <code className={styles.code}>.text-gradient</code></p>
+                {/* ── Colors ── */}
+                <section className={styles.section}>
+                    <h2 className={styles.sectionTitle}>Colors</h2>
+
+                    <div className={styles.swatchGrid}>
+                        <Swatch label="Ice 500" hex="#0EA5E9" />
+                        <Swatch label="Ice 600" hex="#0284C7" />
+                        <Swatch label="Ice 800" hex="#075985" />
+                        <Swatch label="CTA Callout" hex="#0268A2" />
+                    </div>
+
+                    <h3 className={styles.subLabel}>Backgrounds</h3>
+                    <div className={styles.swatchGrid}>
+                        <Swatch label="Black" hex="#0A0A0F" border />
+                        <Swatch label="Dark" hex="#12121A" border />
+                        <Swatch label="Surface" hex="#1A1A24" border />
+                    </div>
+
+                    <h3 className={styles.subLabel}>Text</h3>
+                    <div className={styles.swatchGrid}>
+                        <Swatch label="Primary" hex="#FEFFFE" border />
+                        <Swatch label="Muted" hex="#94A3B8" />
+                        <Swatch label="Dim" hex="#64748B" />
                     </div>
                 </section>
 
-                <section>
-                    <h2 className={styles.h2}>Core Palette</h2>
-                    <div className={styles.grid}>
-                        <div className={styles.card}>
-                            <h3 className={styles.h3} style={{ color: '#FEFFFE' }}>Primary Text</h3>
-                            <p className={styles.muted}>Main body text color.</p>
-                            <code className={styles.code}>#FEFFFE</code>
-                        </div>
-                        <div className={styles.card}>
-                            <h3 className={styles.h3} style={{ color: '#94a3b8' }}>Muted Text</h3>
-                            <p className={styles.muted}>Secondary labels and hints.</p>
-                            <code className={styles.code}>#94A3B8</code>
-                        </div>
-                        <div className={styles.card}>
-                            <h3 className={styles.h3} style={{ color: '#0268A2' }}>CTA Callout</h3>
-                            <p className={styles.muted}>High-priority action text.</p>
-                            <code className={styles.code}>#0268A2</code>
-                        </div>
+                {/* ── Gradient ── */}
+                <section className={styles.section}>
+                    <h2 className={styles.sectionTitle}>Gradient</h2>
+                    <div className={styles.gradientCard}>
+                        <div className={styles.gradientBar} />
+                        <code className={styles.gradientCode}>
+                            linear-gradient(135deg, #0284C7, #075985)
+                        </code>
                     </div>
                 </section>
 
-                <section>
-                    <h2 className={styles.h2}>Background System</h2>
-                    <div className={styles.grid}>
-                        <div className={styles.card} style={{ background: '#0a0a0f' }}>
-                            <h3 className={styles.h3}>Hky Black</h3>
-                            <p className={styles.muted}>Global background color.</p>
-                            <code className={styles.code}>#0A0A0F</code>
-                        </div>
-                        <div className={styles.card} style={{ background: '#1a1a24' }}>
-                            <h3 className={styles.h3}>Hky Surface</h3>
-                            <p className={styles.muted}>Input fields and container backgrounds.</p>
-                            <code className={styles.code}>#1A1A24</code>
-                        </div>
-                    </div>
-                </section>
+                {/* ── Typography ── */}
+                <section className={styles.section}>
+                    <h2 className={styles.sectionTitle}>Typography</h2>
 
-                <section>
-                    <h2 className={styles.h2}>Typography</h2>
-                    <div className={styles.card}>
-                        <div style={{ marginBottom: '30px' }}>
-                            <p className={styles.muted} style={{ textTransform: 'uppercase', fontSize: '0.75rem' }}>Main: Geist Sans</p>
-                            <div className={styles.fontPreviewMain}>One Link. Your Hockey Story.</div>
+                    <div className={styles.typeCard}>
+                        <div className={styles.typeRow}>
+                            <span className={styles.typeLabel}>Geist Sans</span>
+                            <span className={styles.typeSample}>One Link. Your Hockey Story.</span>
                         </div>
-                        <div>
-                            <p className={styles.muted} style={{ textTransform: 'uppercase', fontSize: '0.75rem' }}>Mono: Geist Mono</p>
-                            <div className={styles.fontPreviewMono} style={{ fontSize: '1.5rem', marginTop: "10px" }}>hky.bio/mccallum</div>
+                        <div className={styles.typeRow}>
+                            <span className={styles.typeLabel}>Geist Mono</span>
+                            <span className={styles.typeSampleMono}>hky.bio/mccallum</span>
                         </div>
                     </div>
                 </section>
 
                 <footer className={styles.footer}>
-                    &copy; 2026 MyHockeyBio.com | Internal Document
+                    &copy; 2026 MyHockeyBio.com
                 </footer>
             </div>
+        </div>
+    );
+}
+
+/* ─── Swatch helper ─── */
+function Swatch({ label, hex, border }: { label: string; hex: string; border?: boolean }) {
+    return (
+        <div className={styles.swatch}>
+            <div
+                className={styles.swatchColor}
+                style={{
+                    background: hex,
+                    border: border ? '1px solid rgba(255,255,255,0.12)' : 'none',
+                }}
+            />
+            <span className={styles.swatchLabel}>{label}</span>
+            <code className={styles.swatchHex}>{hex}</code>
         </div>
     );
 }
