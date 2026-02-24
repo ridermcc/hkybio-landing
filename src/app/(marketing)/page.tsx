@@ -16,10 +16,7 @@ export default function Home() {
           </h1>
 
           <p className="text-base sm:text-xl text-hky-muted mb-8 sm:mb-12 animate-fade-up delay-200 max-w-lg mx-auto">
-            Personal branding is becoming important in hockey.
-            <br />
-            We want to help you control it.
-
+            Personal branding is becoming important in hockey. We want to help you control it.
           </p>
 
           {/* CTA — Claim Username Input */}
