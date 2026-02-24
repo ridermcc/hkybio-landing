@@ -9,16 +9,17 @@ export default function Home() {
 
         {/* Main headline */}
         <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 animate-fade-up delay-100">
+          <h1 className="text-5xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 animate-fade-up delay-100">
             The link in bio
             <br />
             <span className="text-gradient">for hockey.</span>
           </h1>
 
           <p className="text-base sm:text-xl text-hky-muted mb-8 sm:mb-12 animate-fade-up delay-200 max-w-lg mx-auto">
-            Your name. Your brand. Your career.
+            Personal branding is becoming important in hockey.
             <br />
-            One link. Claim it now.
+            We want to help you control it.
+
           </p>
 
           {/* CTA — Claim Username Input */}

@@ -163,7 +163,7 @@ body {
 
 /* Primary button */
 .btn-primary {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  background-color: #0369a1;
   color: white;
   font-weight: 600;
   padding: 14px 28px;
@@ -171,12 +171,10 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
 }
 
 .btn-primary:active {
@@ -238,8 +236,8 @@ body {
   align-items: center;
   background: #1a1a24;
   border: 2px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 4px;
+  border-radius: 12px;
+  padding: 0;
   transition: all 0.25s ease;
 }
 
