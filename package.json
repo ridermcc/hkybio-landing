@@ -9,14 +9,24 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.33",
+    "@ai-sdk/groq": "^3.0.25",
+    "@ai-sdk/openai": "^3.0.36",
+    "@ai-sdk/xai": "^3.0.59",
+    "@openrouter/ai-sdk-provider": "^2.2.3",
     "@react-email/components": "^1.0.7",
     "@react-email/render": "^2.0.4",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.95.3",
+    "ai": "^6.0.103",
+    "cheerio": "^1.1.0",
+    "dotenv": "^17.3.1",
     "next": "16.1.6",
+    "node-ical": "^0.25.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "resend": "^6.9.2"
+    "resend": "^6.9.2",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
