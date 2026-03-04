@@ -36,6 +36,8 @@ export async function getSchedule(url: string) {
         schema: z.array(GameSchema),
         prompt: `Extract the games for this hockey team from the provided web page text.
                  Determine if the game is Home or Away. Standardize dates to ISO format.
+                 Do not include the arena name in the location.
+                 Format the time clearly to only show the local time, e.g. "7:00 PM" instead of messy strings with timezones.
                  
                  Web Page HTML:
                  ${allHtmlParsed}`

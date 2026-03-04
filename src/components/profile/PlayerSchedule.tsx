@@ -3,31 +3,72 @@ import React, { useState, useEffect } from 'react';
 import { Game } from "@/lib/llm-schedule"
 
 interface PlayerScheduleProps {
-    scheduleUrl: string
+    playerId: string
+    scheduleUrl?: string
+    games?: any[]
 }
 
-export function PlayerSchedule({ scheduleUrl }: PlayerScheduleProps) {
-    const [games, setGames] = useState<Game[]>([])
-    const [loading, setLoading] = useState(true)
+export function PlayerSchedule({ playerId, scheduleUrl, games: initialGames = [] }: PlayerScheduleProps) {
+    const initialMapped = React.useMemo(() => {
+        const mapped = initialGames.map(g => ({
+            opponent: g.opponent,
+            date: g.game_date,
+            time: g.game_time,
+            location: g.location,
+            isHome: g.is_home
+        }))
+        // Ensure chronological order since DB query order can change when records are edited
+        return mapped.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    }, [initialGames])
+
+    const [games, setGames] = useState<Game[]>(initialMapped)
+    const [loading, setLoading] = useState(initialMapped.length === 0 && !!scheduleUrl)
 
     useEffect(() => {
-        fetch(`/api/schedule?url=${encodeURIComponent(scheduleUrl)}`)
+        if (initialMapped.length > 0) {
+            setGames(initialMapped)
+            setLoading(false)
+            return
+        }
+
+        if (!scheduleUrl) {
+            setLoading(false)
+            return
+        }
+
+        setLoading(true)
+        fetch(`/api/schedule?url=${encodeURIComponent(scheduleUrl)}&playerId=${playerId}`)
             .then(res => res.json())
             .then(data => {
-                setGames(data.games);
-                console.log(data.games);
+                if (data.games) {
+                    setGames(data.games);
+                }
             })
             .catch(err => console.error('Failed to fetch schedule:', err))
             .finally(() => setLoading(false))
-    }, [scheduleUrl]);
+    }, [scheduleUrl, playerId, initialMapped]);
 
     if (loading) {
         return (
-            <section className="w-full animate-fade-up opacity-0 px-4 py-2" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
-                <div className="grid grid-cols-2 gap-3">
-                    <div className="col-span-2 h-24 bg-white/[0.03] rounded-xl animate-pulse" />
-                    <div className="h-16 bg-white/[0.03] rounded-xl animate-pulse" />
-                    <div className="h-16 bg-white/[0.03] rounded-xl animate-pulse" />
+            <section className="w-full animate-fade-up opacity-0 px-4 py-4" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
+                <div className="relative border border-white/[0.08] rounded-2xl py-6 px-4 flex flex-col items-center group">
+                    {/* Top Border Label: Next Game */}
+                    <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 flex items-center justify-center px-4 bg-hky-black whitespace-nowrap z-10">
+                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">Next Game</span>
+                    </div>
+
+                    <div className="flex flex-col items-center justify-center text-center w-full z-10 mt-2 mb-2">
+                        {/* Title Skeleton */}
+                        <div className="h-8 w-48 sm:h-10 sm:w-64 bg-white/[0.05] rounded-md animate-pulse mb-4" />
+
+                        {/* Info Row Skeleton */}
+                        <div className="h-4 w-64 bg-white/[0.05] rounded-md animate-pulse" />
+                    </div>
+
+                    {/* Button Skeleton */}
+                    <div className="mt-2 flex justify-center w-full z-10">
+                        <div className="h-9 w-32 rounded-full bg-white/[0.03] animate-pulse border border-white/[0.05]" />
+                    </div>
                 </div>
             </section>
         )
@@ -69,7 +110,7 @@ export function PlayerSchedule({ scheduleUrl }: PlayerScheduleProps) {
 
                 <div className="flex flex-col items-center text-center w-full z-10 mt-2 mb-2">
                     <p className="text-[28px] sm:text-[34px] font-extrabold text-white leading-none tracking-tight mb-4">
-                        {nextGame.isHome ? 'vs' : '@'} {nextGame.opponent}
+                        {nextGame.isHome ? 'vs.' : '@'} {nextGame.opponent}
                     </p>
 
                     <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-[13px] font-semibold text-white/60 tabular-nums">
@@ -85,12 +126,8 @@ export function PlayerSchedule({ scheduleUrl }: PlayerScheduleProps) {
 
                         {nextGame.location && (
                             <>
-                                <div className="w-px h-3 bg-white/[0.08] hidden sm:block" />
-                                <span className="hidden sm:flex items-center gap-1.5">
-                                    <svg className="w-3.5 h-3.5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
+                                <div className="w-px h-3 bg-white/[0.08]" />
+                                <span className="flex items-center gap-1.5">
                                     {nextGame.location}
                                 </span>
                             </>

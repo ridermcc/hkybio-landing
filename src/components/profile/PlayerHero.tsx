@@ -1,26 +1,30 @@
 import React from 'react';
 import { PlayerLinks } from './PlayerLinks';
 
+interface PlayerLink {
+    platform: string;
+    url: string;
+    logo_url?: string;
+}
+
 interface PlayerHeroProps {
     playerName?: string;
     username: string;
     imageUrl?: string;
-    birthYear?: number;
-    position?: string;
     nationality?: string;
     teamName?: string;
     leagueName?: string;
+    socialLinks?: PlayerLink[];
 }
 
 export function PlayerHero({
     playerName,
     username,
     imageUrl,
-    birthYear,
-    position,
     nationality,
     teamName,
     leagueName,
+    socialLinks,
 }: PlayerHeroProps) {
     const flagUrl = nationality
         ? `/flags/${nationality.toLowerCase()}.svg`
@@ -70,12 +74,7 @@ export function PlayerHero({
 
                     {/* Player links */}
                     <PlayerLinks
-                        links={[
-                            { platform: "elite prospects", url: "https://www.instagram.com/hky.bio", logo_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu4j6L8PjCUydVTS1uTA2XfHDiH7_f6Ipf5g&s" },
-                            { platform: "instat", url: "https://www.youtube.com/@hkybio", logo_url: "https://support.hudl.com/resource/1766089243000/DataCategoryImages/Images/Instat_for_Basketball.png" },
-                            { platform: "PSU", url: "https://twitter.com/hkybio", logo_url: "https://ridermcc.github.io/player-hub/assets/team-logo-tSNMqZZV.png" },
-                            { platform: "NCAA", url: "https://twitter.com/hkybio", logo_url: "https://ridermcc.github.io/player-hub/assets/league-logo-NlDNqISA.png" },
-                        ]}
+                        links={socialLinks || []}
                     />
                 </div>
             </div>

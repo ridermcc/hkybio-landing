@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react'
 
 interface PlayerVideoProps {
     url: string
+    title?: string
 }
 
 /** Extract the YouTube video ID from various URL formats */
@@ -20,9 +21,10 @@ function getYouTubeId(url: string): string | null {
     return null
 }
 
-export function PlayerVideo({ url }: PlayerVideoProps) {
+export function PlayerVideo({ url, title }: PlayerVideoProps) {
     const [playing, setPlaying] = useState(false)
     const videoId = useMemo(() => getYouTubeId(url), [url])
+    const contextLabel = title || '';
 
     if (!videoId) return null
 
@@ -49,7 +51,7 @@ export function PlayerVideo({ url }: PlayerVideoProps) {
             >
                 <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/[0.12]" />
                 <span className="text-[10px] font-bold text-white/60 uppercase tracking-[0.2em] px-4">
-                    Highlights
+                    {contextLabel}
                 </span>
                 <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/[0.12]" />
             </div>

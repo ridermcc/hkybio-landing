@@ -9,7 +9,6 @@ import { PlayerJourney } from '@/components/profile/PlayerJourney'
 import { PlayerStats } from '@/components/profile/PlayerStats'
 import { PlayerSchedule } from '@/components/profile/PlayerSchedule'
 import { PlayerSponsors } from '@/components/profile/PlayerSponsors'
-import { PlayerBusiness } from '@/components/profile/PlayerBusiness'
 
 type Props = {
     params: Promise<{ username: string }>
@@ -20,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const supabase = await createClient()
 
     const { data: profile } = await supabase
-        .from('waitlist')
+        .from('players')
         .select('full_name, username')
         .eq('username', username)
         .maybeSingle()
@@ -40,8 +39,18 @@ export default async function ProfilePage({ params }: Props) {
     const supabase = await createClient()
 
     const { data: profile } = await supabase
-        .from('waitlist')
-        .select('username, full_name, team, league')
+        .from('players')
+        .select(`
+            *,
+            player_social_links(*),
+            player_highlights(*),
+            player_representatives(*),
+            player_sponsors(*),
+            player_games(*),
+            player_journey(*),
+            player_stats(*),
+            player_articles(*)
+        `)
         .eq('username', username)
         .maybeSingle()
 
@@ -49,97 +58,87 @@ export default async function ProfilePage({ params }: Props) {
         notFound()
     }
 
+    // Sort relations by display_order
+    const sponsors = (profile.player_sponsors || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+    const journey = (profile.player_journey || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+    const socialLinks = (profile.player_social_links || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+    const highlights = (profile.player_highlights || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+    const representatives = (profile.player_representatives || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+    const playerStatsList = (profile.player_stats || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+    const articles = (profile.player_articles || []).sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0))
+
+    const currentStats = playerStatsList.length > 0 ? playerStatsList[0] : null
+
+    const topRep = representatives.length > 0 ? representatives[0] : null
+
     return (
         <main className="min-h-screen bg-hky-black text-white flex flex-col">
             <PlayerHero
                 playerName={profile.full_name}
                 username={profile.username}
-                imageUrl="https://ridermcc.github.io/player-hub/player-photo.jpg"
-                nationality="CA"
-                teamName={profile.team}
-                leagueName={profile.league}
+                imageUrl={profile.photo_url || "https://ridermcc.github.io/player-hub/player-photo.jpg"}
+                nationality={profile.nationality || "CA"}
+                teamName={profile.current_team}
+                leagueName={profile.current_league}
+                socialLinks={socialLinks}
             />
             <PlayerStats
-                stats={{
-                    GP: 24,
-                    G: 1,
-                    A: 17,
-                    PTS: 18,
-                }}
-                season="2024-25"
-                league={profile.league ?? undefined}
+                stats={currentStats ? currentStats.stats : []}
+                season={currentStats?.season}
                 bio={{
-                    birthYear: 2001,
-                    position: 'D',
-                    shoots: 'L',
-                    height: '6\'0',
-                    weight: '175',
+                    birthYear: profile.birth_year,
+                    position: profile.position,
+                    shoots_catches: profile.shoots_catches,
+                    height: profile.height_display,
+                    weight: profile.weight_display,
                 }}
             />
-            <PlayerSchedule
-                scheduleUrl="https://athletics.aurora.edu/sports/mens-ice-hockey/schedule"
-            />
+            {(profile.schedule_url || (profile.player_games && profile.player_games.length > 0)) && (
+                <PlayerSchedule
+                    playerId={profile.id}
+                    scheduleUrl={profile.schedule_url}
+                    games={profile.player_games || []}
+                />
+            )}
 
-            <PlayerVideo
-                url="https://www.youtube.com/embed/SWHWiAAV5qs"
-            />
+            {highlights.length > 0 && (
+                <PlayerVideo
+                    url={highlights[0].video_url}
+                    title={highlights[0].title}
+                />
+            )}
 
-            <PlayerJourney
-                stops={[
-                    {
-                        teamName: 'Revelstoke Grizzlies',
-                        league: 'KIJHL',
-                        years: '2018–2020',
-                        seasons: 2,
-                        accolades: ['KIJHL Champion', 'Cyclone Taylor Cup Champion'],
-                    },
-                    {
-                        teamName: 'Fort McMurray Oil Barons',
-                        league: 'AJHL',
-                        years: '2020–2022',
-                        seasons: 2,
-                        accolades: ['Rody McNeil Community Award'],
-                    },
-                    {
-                        teamName: 'Plymouth State University',
-                        league: 'NCAA III',
-                        years: '2022–2026',
-                        seasons: 4,
-                        accolades: ['2x MASCAC Champion', '3x First Team All-Conference'],
-                    },
-                ]}
-            />
-            <PlayerBusiness
-                businesses={[
-                    {
-                        name: 'hky.bio',
-                        tagline: 'Personal branding for hockey players',
-                        url: 'https://www.hky.bio',
-                        coverUrl: 'https://hky.bio/logo-white.svg',
-                    },
-                ]}
-            />
-            <PlayerSponsors
-                sponsors={[
-                    { name: 'Bauer', logoUrl: 'https://imgs.search.brave.com/_hlXsxAP6dHvq6a4bfizjN-7Hii2d0WKkGIyEfHz8lc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wNy5o/aWNsaXBhcnQuY29t/L3ByZXZpZXcvNTE5/LzgzNy8yOTgvYmF1/ZXItaG9ja2V5LWlj/ZS1ob2NrZXktZXF1/aXBtZW50LWhvY2tl/eS1zdGlja3MtbG9n/by1zcG9ydC1ob2Nr/ZXkuanBn', url: 'https://www.bauer.com', description: 'My go-to gear since bantam', discount: '15% Off', promoCode: 'RIDER15' },
-                    { name: 'CCM', logoUrl: 'https://imgs.search.brave.com/oPBrt4S2o33WKJ20R_7KXrTBSkD8ikeiV3o5bHNS424/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzQ5LzEvY2NtLWxv/Z28tcG5nX3NlZWts/b2dvLTQ5NjI5MS5w/bmc', url: 'https://www.ccmhockey.com', description: 'Best helmet in the game', promoCode: 'MCCALLUM10' },
-                ]}
-            />
-            <PlayerArticles
-                urls={[
-                    'https://www.kijhl.ca/grizzlies-alumnus-mccallum-earns-ncaa-iii-rookie-nod',
-                    'https://athletics.plymouth.edu/news/2025/10/17/mens-ice-hockey-mh-panthers-favored-in-inaugural-lec-mens-ice-hockey-season.aspx',
-                    'https://athletics.plymouth.edu/news/2024/12/7/mens-ice-hockey-mh-mccallum-pots-ot-game-winner-in-annual-teddy-bear-toss-game.aspx',
-                    'https://www.ajhl.ca/rider-mccallum-commits-to-plymouth-state-university',
-                    'https://athletics.plymouth.edu/news/2024/3/28/mens-ice-hockey-10-mh-four-panthers-chosen-as-new-england-all-stars-by-nehwa.aspx',
-                    'https://www.instagram.com/p/C5ETRkDs_6Z/',
-                    'https://athletics.plymouth.edu/news/2024/3/9/mens-ice-hockey-9-mh-tait-lifts-panthers-past-cortland-in-ncaa-tournament.aspx',
-                    'https://www.kijhl.ca/grizzlies-headed-to-junior-a-college-level',
-                ]}
-            />
+            {journey.length > 0 && (
+                <PlayerJourney
+                    stops={journey.map((j: any) => ({
+                        teamName: j.team_name,
+                        league: j.league,
+                        years: j.end_year ? `${j.start_year}–${j.end_year}` : `${j.start_year}–Present`,
+                        seasons: j.end_year ? j.end_year - j.start_year : new Date().getFullYear() - j.start_year,
+                        accolades: j.accolades || [],
+                    }))}
+                />
+            )}
+
+            {sponsors.length > 0 && (
+                <PlayerSponsors
+                    sponsors={sponsors.map((s: any) => ({
+                        name: s.name,
+                        logoUrl: s.image_url,
+                        url: s.link_url,
+                        description: s.description,
+                    }))}
+                />
+            )}
+
+            {articles.length > 0 && (
+                <PlayerArticles
+                    urls={articles.map((a: any) => a.article_url)}
+                />
+            )}
             <ProfileFooter
-                agentName="Nick DiLisi"
-                agencyName="93 Hockey Services"
+                agentName={topRep?.name || "Nick DiLisi"}
+                agencyName={topRep?.company || "93 Hockey Services"}
             />
         </main>
     )
