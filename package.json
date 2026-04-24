@@ -6,13 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.33",
     "@ai-sdk/groq": "^3.0.25",
     "@ai-sdk/openai": "^3.0.36",
     "@ai-sdk/xai": "^3.0.59",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@openrouter/ai-sdk-provider": "^2.2.3",
     "@react-email/components": "^1.0.7",
     "@react-email/render": "^2.0.4",
@@ -21,22 +26,31 @@
     "ai": "^6.0.103",
     "cheerio": "^1.1.0",
     "dotenv": "^17.3.1",
+    "heic2any": "^0.0.4",
     "next": "16.1.6",
     "node-ical": "^0.25.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-easy-crop": "^5.5.7",
     "resend": "^6.9.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.7.0",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "happy-dom": "^20.8.3",
+    "jsdom": "^27.0.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.18"
   }
 }

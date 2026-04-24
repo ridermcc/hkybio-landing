@@ -26,3 +26,9 @@ CREATE POLICY "Allow anon to update waitlist"
 -- Track user subscription and account status
 ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'subscribed';
 -- Options: 'subscribed', 'unsubscribed', 'bounced'
+
+-- Allow players to define the order of sections on their profile
+ALTER TABLE players ADD COLUMN IF NOT EXISTS section_order TEXT[];
+
+-- Store hero image crop parameters (non-destructive cropping)
+ALTER TABLE players ADD COLUMN IF NOT EXISTS photo_crop JSONB;

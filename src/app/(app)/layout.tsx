@@ -16,9 +16,7 @@ export default async function AppLayout({
     return (
         <main className="min-h-screen bg-hky-black text-white">
             {/* App shell — you'll add your dashboard nav/sidebar here later */}
-            <div className="max-w-4xl mx-auto px-4 py-8">
-                {children}
-            </div>
+            {children}
         </main>
     );
 }

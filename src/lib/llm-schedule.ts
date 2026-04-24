@@ -32,7 +32,7 @@ export async function getSchedule(url: string) {
     const trimmedBodyText = bodyText.replace(/\s+/g, ' ').trim()
 
     const { object } = await generateObject({
-        model: google('gemini-2.5-flash-lite-preview-09-2025'),
+        model: google('gemini-2.5-flash-lite'),
         schema: z.array(GameSchema),
         prompt: `Extract the games for this hockey team from the provided web page text.
                  Determine if the game is Home or Away. Standardize dates to ISO format.

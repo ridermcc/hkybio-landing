@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import * as cheerio from 'cheerio';
 
 export async function GET(request: NextRequest) {
     const url = request.nextUrl.searchParams.get('url');
@@ -8,57 +9,127 @@ export async function GET(request: NextRequest) {
     }
 
     try {
+        const parsed = new URL(url);
+
+        // Only allow HTTPS
+        if (parsed.protocol !== 'https:') {
+            return NextResponse.json({ error: 'Only HTTPS URLs are allowed' }, { status: 400 });
+        }
+
+        // Block private/internal IPs and localhost (SSRF protection)
+        const hostname = parsed.hostname.toLowerCase();
+        const blockedPatterns = [
+            'localhost',
+            '127.0.0.1',
+            '0.0.0.0',
+            '169.254.',       // link-local / cloud metadata
+            '10.',            // private class A
+            '192.168.',       // private class C
+            'metadata.google',
+            '[::1]',
+        ];
+        if (
+            blockedPatterns.some(p => hostname.startsWith(p)) ||
+            hostname.match(/^172\.(1[6-9]|2\d|3[01])\./) || // private class B
+            hostname.endsWith('.internal') ||
+            hostname.endsWith('.local')
+        ) {
+            return NextResponse.json({ error: 'URL not allowed' }, { status: 403 });
+        }
+
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (compatible; hkybio/1.0)',
             },
             signal: AbortSignal.timeout(5000),
+            redirect: 'follow',
         });
+
 
         if (!response.ok) {
             return NextResponse.json(
-                { error: 'Failed to fetch URL' },
+                { error: `Failed to fetch URL: ${response.status}` },
                 { status: 502 }
             );
         }
 
-        const html = await response.text();
+        // Detect charset from headers
+        const contentType = response.headers.get('content-type');
+        let charset = 'utf-8';
+        if (contentType) {
+            const match = contentType.match(/charset=([^;]+)/i);
+            if (match) charset = match[1].trim();
+        }
 
-        // Parse OG tags from HTML
-        const getMetaContent = (property: string): string | null => {
-            // Match both property="og:X" and name="og:X" patterns
-            const regex = new RegExp(
-                `<meta[^>]*(?:property|name)=["']${property}["'][^>]*content=["']([^"']*)["']|<meta[^>]*content=["']([^"']*)["'][^>]*(?:property|name)=["']${property}["']`,
-                'i'
-            );
-            const match = html.match(regex);
-            return match ? (match[1] || match[2] || null) : null;
-        };
+        // Read body as array buffer for flexible decoding
+        const buffer = await response.arrayBuffer();
+        let html = '';
 
-        // Also try to get <title> as fallback
-        const titleTagMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
-        const titleTag = titleTagMatch ? titleTagMatch[1].trim() : null;
+        try {
+            const decoder = new TextDecoder(charset);
+            html = decoder.decode(buffer);
+        } catch {
+            // Fallback to utf-8 if specified charset is invalid
+            html = new TextDecoder('utf-8').decode(buffer);
+        }
 
-        // Decode common HTML entities
-        const decodeEntities = (str: string): string =>
-            str.replace(/&amp;/g, '&')
-                .replace(/&lt;/g, '<')
-                .replace(/&gt;/g, '>')
-                .replace(/&quot;/g, '"')
-                .replace(/&#39;/g, "'")
-                .replace(/&#x27;/g, "'");
+        // Check for <meta charset> in HTML as a fallback/override
+        // (Many sites don't set the header but have the meta tag)
+        const metaCharsetMatch = html.match(/<meta[^>]+charset=["']?([^"' >/]+)["']?/i);
+        if (metaCharsetMatch) {
+            const metaCharset = metaCharsetMatch[1].toLowerCase().trim();
+            if (metaCharset && metaCharset !== charset.toLowerCase()) {
+                try {
+                    const betterDecoder = new TextDecoder(metaCharset);
+                    html = betterDecoder.decode(buffer);
+                } catch {
+                    // Ignore if decoder fails
+                }
+            }
+        }
 
-        const ogTitle = getMetaContent('og:title') || titleTag;
-        const ogImage = getMetaContent('og:image');
-        const ogDescription = getMetaContent('og:description');
-        const ogSiteName = getMetaContent('og:site_name');
+        // Use cheerio for robust parsing
+        const $ = cheerio.load(html);
+
+        // Extract metadata using cheerio (automatically handles entities)
+        let ogTitle = $('meta[property="og:title"]').attr('content') || 
+                        $('meta[name="og:title"]').attr('content') || 
+                        $('title').text().trim() ||
+                        null;
+
+        const ogImage = $('meta[property="og:image"]').attr('content') || 
+                        $('meta[name="og:image"]').attr('content') || 
+                        null;
+
+        const ogDescription = $('meta[property="og:description"]').attr('content') || 
+                              $('meta[name="og:description"]').attr('content') || 
+                              null;
+
+        const ogSiteName = $('meta[property="og:site_name"]').attr('content') || 
+                           $('meta[name="og:site_name"]').attr('content') || 
+                           null;
+
+        // Clean up Instagram titles
+        if (ogTitle && (hostname.includes('instagram.com') || ogSiteName?.toLowerCase().includes('instagram'))) {
+            // Instagram titles often look like "Name on Instagram: 'Caption'" or "Name on Instagram: Caption"
+            const instagramPrefix = /^.*? on Instagram: /i;
+            if (instagramPrefix.test(ogTitle)) {
+                let cleanedTitle = ogTitle.replace(instagramPrefix, '').trim();
+                // Remove surrounding quotes if they exist
+                if ((cleanedTitle.startsWith('"') && cleanedTitle.endsWith('"')) || 
+                    (cleanedTitle.startsWith("'") && cleanedTitle.endsWith("'"))) {
+                    cleanedTitle = cleanedTitle.substring(1, cleanedTitle.length - 1).trim();
+                }
+                ogTitle = cleanedTitle;
+            }
+        }
 
         return NextResponse.json(
             {
-                title: ogTitle ? decodeEntities(ogTitle) : null,
-                image: ogImage ? decodeEntities(ogImage) : null,
-                description: ogDescription ? decodeEntities(ogDescription) : null,
-                siteName: ogSiteName ? decodeEntities(ogSiteName) : null,
+                title: ogTitle,
+                image: ogImage,
+                description: ogDescription,
+                siteName: ogSiteName,
             },
             {
                 headers: {
@@ -66,7 +137,8 @@ export async function GET(request: NextRequest) {
                 },
             }
         );
-    } catch {
+    } catch (error) {
+        console.error('OG API error:', error);
         return NextResponse.json(
             { error: 'Failed to fetch metadata' },
             { status: 500 }

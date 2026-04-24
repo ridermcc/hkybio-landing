@@ -42,7 +42,7 @@ export default function ClaimUsernameInput() {
             return;
         }
 
-        router.push(`/claim?username=${encodeURIComponent(username)}`);
+        router.push(`/register?username=${encodeURIComponent(username)}`);
     }
 
 

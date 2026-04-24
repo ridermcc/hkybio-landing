@@ -394,7 +394,7 @@ export default function ClaimForm() {
                             value={formData.email}
                             onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                             placeholder="Email"
-                            className="input-field text-lg"
+                            className="input-field text-base sm:text-lg"
                             autoFocus
                         />
                     </div>
@@ -403,7 +403,7 @@ export default function ClaimForm() {
                         <p className="text-center text-sm text-red-400 animate-fade-up">{error}</p>
                     )}
 
-                    <button type="submit" disabled={isLoading} className="w-full btn-primary text-lg py-4">
+                    <button type="submit" disabled={isLoading} className="w-full btn-primary text-base sm:text-lg py-3 sm:py-4">
                         {isLoading ? (
                             <span className="flex items-center justify-center">
                                 <span className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
@@ -481,7 +481,7 @@ export default function ClaimForm() {
                         )}
                     </div>
 
-                    <button type="submit" disabled={availability === 'taken' || isLoading} className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <button type="submit" disabled={availability === 'taken' || isLoading} className="w-full btn-primary text-base sm:text-lg py-3 sm:py-4 disabled:opacity-50 disabled:cursor-not-allowed">
                         Continue
                     </button>
                 </form>
@@ -545,7 +545,7 @@ export default function ClaimForm() {
                 <button
                     type="submit"
                     disabled={!formData.full_name || !formData.team || !formData.league}
-                    className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full btn-primary text-base sm:text-lg py-3 sm:py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Join the Waitlist
                 </button>

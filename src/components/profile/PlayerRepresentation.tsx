@@ -2,7 +2,7 @@ import React from 'react'
 
 export function PlayerRepresentation({ agentName, agencyName }: { agentName: string, agencyName: string }) {
     return (
-        <div className="w-full py-2 px-4 text-center animate-fade-up opacity-0" style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}>
+        <div className="w-full py-1.5 px-4 text-center animate-fade-up opacity-0" style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}>
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/20 mb-1.5">
                 Represented by
             </p>
