@@ -55,13 +55,13 @@ export default function TopNav() {
                             }`}
                     >
                         <div className="overflow-hidden px-3 sm:px-4 flex flex-col gap-2">
-                            <button
-                                disabled
-                                className="w-full px-4 py-3 flex items-center justify-between text-sm font-medium text-white/40 cursor-not-allowed select-none transition-colors hover:text-white/60 bg-white/5 rounded-xl border border-white/5"
+                            <Link
+                                href="/login"
+                                onClick={() => setIsOpen(false)}
+                                className="w-full px-4 py-3 flex items-center justify-center text-sm font-medium text-white transition-colors hover:bg-white/10 bg-white/5 rounded-xl border border-white/10"
                             >
-                                <span>Log in</span>
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white/80">COMING SOON</span>
-                            </button>
+                                Log in
+                            </Link>
                         </div>
                     </div>
                 </nav >

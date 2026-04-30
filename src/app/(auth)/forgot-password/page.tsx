@@ -58,6 +58,7 @@ export default function ForgotPasswordPage() {
                         width={48}
                         height={48}
                         className="mx-auto"
+                        priority
                     />
                 </Link>
                 <h1 className="text-2xl font-bold tracking-tight">
