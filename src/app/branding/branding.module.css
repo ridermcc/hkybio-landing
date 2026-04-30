@@ -1,0 +1,252 @@
+/* ─── Brand Guide ─── */
+.root {
+    --hky-black: #0a0a0f;
+    --hky-surface: #1a1a24;
+    --hky-text: #FEFFFE;
+    --hky-muted: #94a3b8;
+    --hky-dim: #64748b;
+    --ice-500: #0ea5e9;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+    color: var(--hky-text);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.headerLogo {
+    width: 180px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--hky-dim);
+}
+
+/* Sections */
+.section {
+    margin-bottom: 52px;
+}
+
+.sectionTitle {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ice-500);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.subLabel {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--hky-dim);
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+/* ─── Logos ─── */
+.logoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.logoCard {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logoPreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 24px;
+}
+
+.logoPreview img {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+}
+
+.logoMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--hky-surface);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logoLabel {
+    font-size: 0.8rem;
+    color: var(--hky-muted);
+}
+
+.downloadRow {
+    display: flex;
+    gap: 6px;
+}
+
+.dlBtn {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--hky-text);
+    text-decoration: none;
+    transition: border-color 0.15s;
+}
+
+.dlBtn:hover {
+    border-color: var(--ice-500);
+}
+
+/* ─── Swatches ─── */
+.swatchGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.swatch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--hky-surface);
+    padding: 6px 14px 6px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.swatchColor {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.swatchLabel {
+    font-size: 0.8rem;
+    color: var(--hky-text);
+    white-space: nowrap;
+}
+
+.swatchHex {
+    font-size: 0.72rem;
+    font-family: var(--font-geist-mono), monospace;
+    color: var(--hky-dim);
+    white-space: nowrap;
+}
+
+/* ─── Gradient ─── */
+.gradientCard {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gradientBar {
+    height: 56px;
+    background: linear-gradient(135deg, #0284c7 0%, #075985 100%);
+}
+
+.gradientCode {
+    display: block;
+    padding: 12px 14px;
+    background: var(--hky-surface);
+    font-size: 0.78rem;
+    font-family: var(--font-geist-mono), monospace;
+    color: var(--hky-muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Typography ─── */
+.typeCard {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.typeRow {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.typeRow:last-child {
+    border-bottom: none;
+}
+
+.typeLabel {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--hky-dim);
+    flex-shrink: 0;
+    min-width: 90px;
+}
+
+.typeSample {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-family: var(--font-geist-sans), sans-serif;
+}
+
+.typeSampleMono {
+    font-size: 1.2rem;
+    font-family: var(--font-geist-mono), monospace;
+    color: var(--ice-500);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: var(--hky-dim);
+    font-size: 0.75rem;
+    margin-top: 20px;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 600px) {
+    .logoGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .logoMeta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .typeRow {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .typeSample {
+        font-size: 1.2rem;
+    }
+
+    .typeSampleMono {
+        font-size: 1rem;
+    }
+}

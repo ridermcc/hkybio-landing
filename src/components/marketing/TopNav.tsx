@@ -24,7 +24,7 @@ export default function TopNav() {
                     <div className="px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between">
                         <Link href="/" className="inline-flex items-center gap-1.5 sm:gap-2 shrink-0 hover:opacity-80 transition-opacity">
                             <Image
-                                src="/logo.svg"
+                                src="/logo-white.svg"
                                 alt="hky.bio Logo"
                                 width={32}
                                 height={32}

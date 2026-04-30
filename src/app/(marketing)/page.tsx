@@ -5,7 +5,7 @@ export default function Home() {
     <>
 
       {/* Hero Section — compact on mobile, centered on desktop */}
-      <div className="relative px-5 pt-20 pb-10 sm:px-6 sm:pb-16 lg:px-8 min-h-[calc(100dvh-56px)] flex flex-col justify-center">
+      <div className="relative px-5 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-16 lg:px-8 lg:pt-32 min-h-[calc(100dvh-56px)] flex flex-col justify-center">
 
         {/* Main headline */}
         <div className="max-w-2xl mx-auto text-center">
