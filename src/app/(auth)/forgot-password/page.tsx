@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
             <div className="text-center mb-8">
                 <Link href="/" className="inline-block mb-6">
                     <Image
-                        src="/logo.svg"
+                        src="/logo-white.svg"
                         alt="hky.bio"
                         width={48}
                         height={48}
