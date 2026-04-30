@@ -145,7 +145,7 @@ export function EditHeroPanel({ isOpen, onClose, data, onSave }: EditHeroPanelPr
 
                     <div className="space-y-1.5">
                         <label className="text-[10px] font-bold uppercase tracking-wider text-white/40 block">
-                            Team
+                            Team (optional)
                         </label>
                         <input
                             type="text"
@@ -158,7 +158,7 @@ export function EditHeroPanel({ isOpen, onClose, data, onSave }: EditHeroPanelPr
 
                     <div className="space-y-1.5">
                         <label className="text-[10px] font-bold uppercase tracking-wider text-white/40 block">
-                            League
+                            League (optional)
                         </label>
                         <input
                             type="text"
@@ -171,13 +171,13 @@ export function EditHeroPanel({ isOpen, onClose, data, onSave }: EditHeroPanelPr
 
                     <div className="space-y-1.5">
                         <label className="text-[10px] font-bold uppercase tracking-wider text-white/40 block">
-                            Bio
+                            Bio (optional)
                         </label>
                         <textarea
                             value={data.bio}
                             onChange={e => onSave('bio', e.target.value)}
                             className="w-full bg-black/40 border border-white/[0.1] rounded-lg px-3 py-2 text-[13px] text-white placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors min-h-[100px] resize-none"
-                            placeholder="Tell your story..."
+                            placeholder="A quick one-liner..."
                         />
                     </div>
 

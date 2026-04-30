@@ -9,7 +9,7 @@ import { z } from 'zod'
 
 const authSchema = z.object({
     email: z.string().email('Please enter a valid email address'),
-    password: z.string().min(6, 'Password must be at least 6 characters long'),
+    password: z.string().min(1, 'Password is required'),
 })
 
 function LoginContent() {
@@ -106,7 +106,7 @@ function LoginContent() {
                         <label htmlFor="password" className="block text-xs font-medium text-hky-muted">
                             Password
                         </label>
-                        <Link href="/forgot-password" disabled={false} className="text-xs text-white/60 hover:text-white transition-colors">
+                        <Link href="/forgot-password" className="text-xs text-white/60 hover:text-white transition-colors">
                             Forgot password?
                         </Link>
                     </div>
@@ -117,7 +117,6 @@ function LoginContent() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            minLength={6}
                             disabled={loading}
                             className="w-full pl-3 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-ice-600/50 focus:border-ice-600/50 transition-all disabled:opacity-50"
                             placeholder="••••••••"

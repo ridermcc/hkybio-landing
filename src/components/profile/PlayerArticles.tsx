@@ -315,7 +315,19 @@ export function PlayerArticles({ urls, sectionTitle, isEditing = false, onChange
     if (!urls || urls.length === 0) {
         if (isEditing) {
             return (
-                <div className="w-full px-4 pb-4 pt-1 sm:px-5 sm:pb-5">
+                <div className="w-full flex flex-col gap-5 px-4 pb-4 pt-1 sm:px-5 sm:pb-5">
+                    {/* Section Title Input */}
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 ml-1">Section Title</label>
+                        <input
+                            type="text"
+                            value={sectionTitle || ''}
+                            onChange={e => onChange?.({ urls, sectionTitle: e.target.value })}
+                            placeholder="Section Title (e.g. In the News)"
+                            className="w-full bg-black/40 border border-white/[0.1] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-white/50 placeholder:text-white/20"
+                        />
+                    </div>
+
                     <div className="border border-dashed border-white/[0.08] rounded-xl py-10 flex flex-col items-center gap-3">
                         <span className="text-white/30 text-[13px]">No articles added</span>
                         <div className="flex flex-col sm:flex-row items-center gap-2 mt-1 w-full max-w-sm px-4">
@@ -353,9 +365,22 @@ export function PlayerArticles({ urls, sectionTitle, isEditing = false, onChange
     // edit mode - vertical list (new articles added to top of order auto)
     if (isEditing && onChange) {
         return (
-            <div className="flex flex-col gap-4">
-                {/* add article input */}
-                <div className="flex gap-2 mt-2">
+            <div className="flex flex-col gap-5 px-4 pb-4">
+                {/* Section Title Input */}
+                <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 ml-1">Section Title</label>
+                    <input
+                        type="text"
+                        value={sectionTitle || ''}
+                        onChange={e => onChange({ urls, sectionTitle: e.target.value })}
+                        placeholder="Section Title (e.g. In the News)"
+                        className="w-full bg-black/40 border border-white/[0.1] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-white/50 placeholder:text-white/20"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-3">
+                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 ml-1">Add Article</label>
+                    <div className="flex gap-2">
                     <input
                         type="url"
                         value={newUrl}
@@ -376,7 +401,8 @@ export function PlayerArticles({ urls, sectionTitle, isEditing = false, onChange
                         Add
                     </button>
                 </div>
-                <div className="flex flex-col">
+            </div>
+            <div className="flex flex-col">
                     <DndContext
                         sensors={sensors}
                         collisionDetection={closestCenter}
@@ -406,7 +432,10 @@ export function PlayerArticles({ urls, sectionTitle, isEditing = false, onChange
 
     // View Mode (Grid/Row Layout)
     return (
-        <section className="w-full py-1.5 lg:py-0">
+        <section className="w-full py-4 lg:py-3">
+            {sectionTitle && (
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-3 px-4 text-center">{sectionTitle}</p>
+            )}
             <div className="grid grid-cols-2 gap-3 px-4 lg:grid-cols-3 lg:gap-3">
                 {articles.map((article, index) => {
                     const isFirstAndOdd = isOdd && index === 0;

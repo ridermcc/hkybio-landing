@@ -96,36 +96,22 @@ export function RegisterForm({ initialUsername }: { initialUsername: string }) {
         const normalizedEmail = (emailToUse || email).trim().toLowerCase()
 
         try {
-            // Check players table
-            const { data: player } = await supabase
-                .from('players')
-                .select('username')
-                .eq('username', usernameToCheck)
-                .maybeSingle()
-
-            if (player) {
+            const res = await fetch('/api/auth/check-username', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: usernameToCheck, email: normalizedEmail }),
+            })
+            const data = await res.json()
+            if (data.available) {
+                setAvailability('available')
+            } else {
                 setAvailability('taken')
                 taken = true
-            } else {
-                // Check if reserved by someone else
-                const { data: reservation } = await supabase
-                    .from('handle_reservations')
-                    .select('email, expires_at')
-                    .eq('username', usernameToCheck)
-                    .gt('expires_at', new Date().toISOString())
-                    .maybeSingle()
-
-                if (reservation && reservation.email !== normalizedEmail) {
-                    setAvailability('taken')
-                    taken = true
-                } else {
-                    setAvailability('available')
-                }
             }
         } catch { }
         setLoading(false)
         return !taken
-    }, [supabase, email])
+    }, [email])
 
     useEffect(() => {
         if (step !== 'username') return
@@ -151,7 +137,6 @@ export function RegisterForm({ initialUsername }: { initialUsername: string }) {
         setLoading(true)
         setError(null)
         try {
-            console.log(`Attempting to reserve @${usernameToReserve} for ${emailToUse}`)
             const res = await fetch('/api/auth/reserve', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -160,18 +145,15 @@ export function RegisterForm({ initialUsername }: { initialUsername: string }) {
             const data = await res.json()
 
             if (!res.ok) {
-                console.error('Reservation failed:', data)
                 setError(data.error || 'Failed to reserve handle')
                 setAvailability('taken')
                 return false
             }
 
-            console.log('Reservation successful:', data)
             setReservationExpiry(data.expiresAt)
             setError(null)
             return true
-        } catch (err) {
-            console.error('Reservation error:', err)
+        } catch {
             setError('Something went wrong. Please try again.')
             return false
         } finally {
@@ -252,7 +234,7 @@ export function RegisterForm({ initialUsername }: { initialUsername: string }) {
     const handlePasswordSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
-        if (password.length < 6) return setError('Password must be at least 6 characters')
+        if (password.length < 8) return setError('Password must be at least 8 characters')
         setStep('details')
         setError(null)
     }
@@ -546,7 +528,7 @@ export function RegisterForm({ initialUsername }: { initialUsername: string }) {
                             placeholder="Password"
                             className="w-full bg-[#1A1A24] border border-white/10 rounded-xl px-5 py-3 sm:py-4 text-white text-base sm:text-lg font-medium placeholder:text-white/20 focus:outline-none focus:border-white/40 transition-all"
                         />
-                        <button type="submit" disabled={password.length < 6} className="w-full bg-white disabled:opacity-50 text-hky-black hover:bg-ice-100 font-bold text-base sm:text-lg rounded-full py-3 sm:py-4 transition-colors">
+                        <button type="submit" disabled={password.length < 8} className="w-full bg-white disabled:opacity-50 text-hky-black hover:bg-ice-100 font-bold text-base sm:text-lg rounded-full py-3 sm:py-4 transition-colors">
                             Continue
                         </button>
                     </form>
@@ -567,14 +549,14 @@ export function RegisterForm({ initialUsername }: { initialUsername: string }) {
                                 type="text"
                                 value={team}
                                 onChange={(e) => setTeam(e.target.value)}
-                                placeholder="Team"
+                                placeholder="Team (optional)"
                                 className="w-full bg-[#1A1A24] border border-white/10 rounded-xl px-5 py-3 sm:py-4 text-white text-base sm:text-lg font-medium focus:outline-none focus:border-white/40 transition-all"
                             />
                             <input
                                 type="text"
                                 value={league}
                                 onChange={(e) => setLeague(e.target.value)}
-                                placeholder="League"
+                                placeholder="League (optional)"
                                 className="w-full bg-[#1A1A24] border border-white/10 rounded-xl px-5 py-3 sm:py-4 text-white text-base sm:text-lg font-medium focus:outline-none focus:border-white/40 transition-all"
                             />
                         </div>

@@ -158,7 +158,7 @@ export default async function ProfilePage({ params }: Props) {
             }))} />
         }
         if (section === 'articles' && articles.length > 0) {
-            return <PlayerArticles key="articles" urls={articles.map((a: any) => a.article_url)} />
+            return <PlayerArticles key="articles" urls={articles.map((a: any) => a.article_url)} sectionTitle={profile.articles_title || 'In The News'} />
         }
         
         // Link item
@@ -171,7 +171,7 @@ export default async function ProfilePage({ params }: Props) {
     }
 
     return (
-        <main className="min-h-screen bg-hky-black text-white flex flex-col items-center">
+        <main className="min-h-screen bg-hky-black text-white flex flex-col items-center pb-12">
             <div className="w-full max-w-3xl pb-8">
                 <PlayerHero
                     playerName={profile.full_name}
@@ -198,6 +198,13 @@ export default async function ProfilePage({ params }: Props) {
                     agencyName={topRep?.company}
                 />
             </div>
+
+            <a
+                href="/"
+                className="fixed bottom-0 left-0 right-0 z-50 w-full bg-white text-black text-center py-4 text-[13px] font-medium hover:bg-white/90 transition-colors"
+            >
+                Create a page like this with <span className="font-bold ml-1 text-[16px]">hky.bio</span>
+            </a>
         </main>
     )
 }

@@ -46,7 +46,7 @@ export function PlayerVideo({ url, title, isEditing = false, onChange }: PlayerV
     return (
 
         <section
-            className={`w-full py-1.5 lg:py-0 transition-all duration-500 ease-in-out ${!onChange ? 'animate-fade-up opacity-0' : ''}`}
+            className={`w-full py-4 lg:py-3 transition-all duration-500 ease-in-out ${!onChange ? 'animate-fade-up opacity-0' : ''}`}
             style={{
                 ...(!onChange ? { animationDelay: '800ms', animationFillMode: 'forwards' } : undefined),
                 paddingLeft: (playing || isEditing) ? '0px' : '16px',
@@ -54,17 +54,35 @@ export function PlayerVideo({ url, title, isEditing = false, onChange }: PlayerV
             }}
         >
 
-            {/* URL input — edit mode only */}
+            {/* Section title (view mode only) */}
+            {!isEditing && contextLabel && (
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-3 text-center">{contextLabel}</p>
+            )}
+
+            {/* Edit mode fields */}
             {isEditing && (
-                <div className="px-4 mb-3 w-full">
-                    <input
-                        type="url"
-                        value={url}
-                        onChange={e => onChange?.({ url: e.target.value, title: title || '' })}
-                        placeholder="https://youtube.com/watch?v=..."
-                        className="w-full bg-black/40 border border-white/[0.1] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-white/50"
-                        data-testid="video-url-input"
-                    />
+                <div className="px-4 mb-3 w-full flex flex-col gap-3">
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 ml-1">Section Title</label>
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={e => onChange?.({ url: url, title: e.target.value })}
+                            placeholder="Section Title (e.g. Highlights)"
+                            className="w-full bg-black/40 border border-white/[0.1] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-white/50 placeholder:text-white/20"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 ml-1">Video URL</label>
+                        <input
+                            type="url"
+                            value={url}
+                            onChange={e => onChange?.({ url: e.target.value, title: title || '' })}
+                            placeholder="https://youtube.com/watch?v=..."
+                            className="w-full bg-black/40 border border-white/[0.1] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-white/50"
+                            data-testid="video-url-input"
+                        />
+                    </div>
                 </div>
             )}
 

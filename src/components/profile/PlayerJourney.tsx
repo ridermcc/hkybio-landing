@@ -465,49 +465,48 @@ export function PlayerJourney({ stops, isEditing = false, onChange }: PlayerJour
     }
 
     return (
-        <section className={`w-full px-4 py-1.5 lg:px-0 lg:py-0 ${!onChange ? 'animate-fade-up opacity-0' : ''}`} style={!onChange ? { animationDelay: '600ms', animationFillMode: 'forwards' } : undefined}>
-            <div className="relative bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-xl py-6 px-4 flex flex-col items-center shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
-                <div className="flex flex-col w-full z-10">
-                    {stops.map((stop, index) => (
-                        <React.Fragment key={index}>
-                            <div className="py-4 first:pt-0 last:pb-0 flex flex-col">
-                                <div className="flex items-start sm:items-center justify-between gap-4">
-                                    <h3 className="text-[16px] sm:text-[18px] font-extrabold text-white leading-tight tracking-tight">
-                                        {stop.teamName}
-                                    </h3>
-                                    <span className="flex-shrink-0 text-[13px] font-semibold text-white/50 tabular-nums">
-                                        {stop.years}
-                                    </span>
-                                </div>
+        <section className={`w-full px-4 py-4 lg:py-3 ${!onChange ? 'animate-fade-up opacity-0' : ''}`} style={!onChange ? { animationDelay: '600ms', animationFillMode: 'forwards' } : undefined}>
+            {/* Section title */}
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-5 text-center">Career</p>
 
-                                <div className="mt-1">
-                                    <p className="text-[13px] font-semibold text-white/60">
-                                        {stop.league} {stop.seasons > 0 && <><span className="text-white/20 mx-1.5">|</span> {stop.seasons} {stop.seasons === 1 ? 'Season' : 'Seasons'}</>}
-                                    </p>
-                                </div>
+            {/* Timeline */}
+            <div className="relative flex flex-col">
+                {stops.map((stop, index) => (
+                    <div key={index} className={`relative pl-7 ${index < stops.length - 1 ? 'mb-6' : ''}`}>
+                        {/* Circle marker — centered at left 8px */}
+                        <div className="absolute left-[3px] top-[5px] w-[10px] h-[10px] rounded-full border border-white/[0.22]" />
+                        {/* Line segment: starts at circle bottom (top-[15px]), ends at top of next circle
+                            (bottom-[-29px] = 24px mb-6 gap + 5px to next circle top),
+                            or trails to content bottom on the last stop */}
+                        <div className={`absolute left-[8px] top-[15px] w-px bg-white/[0.12] ${index < stops.length - 1 ? 'bottom-[-29px]' : 'bottom-0'}`} />
 
-                                {stop.accolades && stop.accolades.length > 0 && (
-                                    <div className="mt-2 flex flex-wrap items-center gap-1">
-                                        {stop.accolades.map((accolade, i) => (
-                                            <React.Fragment key={i}>
-                                                <span className="text-[11px] font-semibold text-white/50">
-                                                    {accolade}
-                                                </span>
-                                                {i < stop.accolades!.length - 1 && (
-                                                    <span className="text-white/20 mx-1.5 text-[11px]">|</span>
-                                                )}
-                                            </React.Fragment>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-                            {index < stops.length - 1 && (
-                                <div className="w-full h-px bg-white/[0.06] my-1" />
+                        <div className="flex items-start justify-between gap-3">
+                            <h3 className="text-[15px] font-extrabold text-white leading-tight tracking-tight">
+                                {stop.teamName}
+                            </h3>
+                            <span className="text-[12px] font-medium text-white/30 tabular-nums flex-shrink-0 mt-0.5">
+                                {stop.years}
+                            </span>
+                        </div>
+                        <p className="text-[12px] font-semibold text-white/50 mt-0.5">
+                            {stop.league}
+                            {stop.seasons > 0 && (
+                                <span className="text-white/25 ml-1.5">
+                                    · {stop.seasons} {stop.seasons === 1 ? 'Season' : 'Seasons'}
+                                </span>
                             )}
-                        </React.Fragment>
-                    ))}
-                </div>
+                        </p>
+                        {stop.accolades && stop.accolades.length > 0 && (
+                            <div className="mt-2 flex flex-wrap gap-1.5">
+                                {stop.accolades.map((accolade, i) => (
+                                    <span key={i} className="text-[10px] font-semibold text-white/40 bg-white/[0.05] border border-white/[0.08] rounded px-2 py-0.5 leading-tight">
+                                        {accolade}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
         </section>
     )

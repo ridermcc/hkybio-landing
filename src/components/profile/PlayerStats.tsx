@@ -64,48 +64,55 @@ export function PlayerStats({ stats, season, bio, showBio = false, isEditing = f
         if (bio.birthYear) bioItems.push({ label: 'Born', value: String(bio.birthYear) });
     }
 
-    return (
-        <section className={`w-full px-4 py-1.5 lg:py-0 ${!onChange ? 'animate-fade-up opacity-0' : ''}`} style={!onChange ? { animationDelay: '700ms', animationFillMode: 'forwards' } : undefined}>
-            <div className="relative bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-xl pt-4 pb-3 flex flex-col items-center shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
+    const n = visibleStats.length;
+    const valueFontSize =
+        n <= 2 ? 'text-[48px] sm:text-[56px]' :
+        n === 3 ? 'text-[38px] sm:text-[46px]' :
+        n === 4 ? 'text-[30px] sm:text-[36px]' :
+        n === 5 ? 'text-[24px] sm:text-[30px]' :
+                  'text-[20px] sm:text-[24px]';
 
-                {/* Performance stats */}
-                <div className="flex items-baseline justify-center gap-6 sm:gap-10 lg:gap-12 px-4 flex-wrap">
-                    {visibleStats.map((stat, index) => (
-                        <React.Fragment key={stat.id || stat.label || index}>
-                            <div className="flex flex-col items-center">
-                                <span className="text-[28px] sm:text-[32px] lg:text-[36px] font-extrabold text-white tabular-nums leading-none tracking-tight">
-                                    {stat.value}
-                                </span>
-                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mt-1">
-                                    {stat.label}
-                                </span>
-                            </div>
-                            {index < visibleStats.length - 1 && (
-                                <div className="w-px h-6 bg-white/[0.08] self-center" />
+    return (
+        <section className={`w-full px-4 py-4 lg:py-3 ${!onChange ? 'animate-fade-up opacity-0' : ''}`} style={!onChange ? { animationDelay: '700ms', animationFillMode: 'forwards' } : undefined}>
+            {/* Section title = season */}
+            {contextLabel && (
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mb-3 text-center">{contextLabel}</p>
+            )}
+
+            {/* Performance stats — full width, equal columns */}
+            <div className="flex w-full">
+                {visibleStats.map((stat, index) => (
+                    <React.Fragment key={stat.id || stat.label || index}>
+                        <div className="flex-1 flex flex-col items-center">
+                            <span className={`${valueFontSize} font-extrabold text-white tabular-nums leading-none tracking-tight`}>
+                                {stat.value}
+                            </span>
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25 mt-1">
+                                {stat.label}
+                            </span>
+                        </div>
+                        {index < visibleStats.length - 1 && (
+                            <div className="w-px self-stretch bg-white/[0.08]" />
+                        )}
+                    </React.Fragment>
+                ))}
+            </div>
+
+            {/* Bio details row */}
+            {bioItems.length > 0 && (
+                <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap mt-3">
+                    {bioItems.map((item, index) => (
+                        <React.Fragment key={item.label}>
+                            <span className="text-[13px] font-medium text-white/60 tabular-nums leading-none">
+                                {item.value}
+                            </span>
+                            {index < bioItems.length - 1 && (
+                                <div className="w-px h-4 bg-white/[0.06] self-center" />
                             )}
                         </React.Fragment>
                     ))}
                 </div>
-
-                {/* Bio details row */}
-                {bioItems.length > 0 && (
-                    <>
-                        <div className="mt-4" />
-                        <div className="flex items-center justify-center gap-4 sm:gap-6 px-4 flex-wrap">
-                            {bioItems.map((item, index) => (
-                                <React.Fragment key={item.label}>
-                                    <span className="text-[13px] font-medium text-white/60 tabular-nums leading-none">
-                                        {item.value}
-                                    </span>
-                                    {index < bioItems.length - 1 && (
-                                        <div className="w-px h-4 bg-white/[0.06] self-center" />
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </div>
-                    </>
-                )}
-            </div>
+            )}
         </section>
     );
 }

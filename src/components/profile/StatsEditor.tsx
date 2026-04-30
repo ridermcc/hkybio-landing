@@ -63,6 +63,17 @@ const MAX_STATS = 4
 const POSITION_OPTIONS = ['C', 'LW', 'RW', 'D', 'G']
 const SHOOTS_OPTIONS = ['L', 'R']
 
+/* ── Season options (2000-01 to 2025-26, newest first) ── */
+const DEFAULT_SEASON = '2025-26'
+const SEASON_OPTIONS: string[] = (() => {
+    const seasons: string[] = []
+    for (let start = 2025; start >= 2000; start--) {
+        const end = String(start + 1).slice(-2)
+        seasons.push(`${start}-${end}`)
+    }
+    return seasons
+})()
+
 /* ── Height options (4'0 to 6'11) ── */
 const HEIGHT_OPTIONS: string[] = []
 for (let ft = 4; ft <= 6; ft++) {
@@ -258,6 +269,14 @@ export function StatsEditor({ stats, season, bio, showBio = false, onChange }: S
         })
     }, [stats])
 
+    // Initialise season to the default if none is set
+    React.useEffect(() => {
+        if (!season) {
+            onChange({ season: DEFAULT_SEASON, stats, bio: bio || {}, showBio })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const emitChange = (updates: Partial<StatsEditData>) => {
         onChange({
             season: season,
@@ -400,7 +419,21 @@ export function StatsEditor({ stats, season, bio, showBio = false, onChange }: S
     return (
         <div className="flex flex-col gap-5 px-4 pb-4 pt-1 sm:px-5 sm:pb-5" data-testid="stats-editor">
 
-
+            {/* ── Season selector ── */}
+            <div className="flex flex-col gap-1.5">
+                <label className="text-[11px] font-semibold text-white/25 tracking-[0.05em]">Season</label>
+                <select
+                    value={season || DEFAULT_SEASON}
+                    onChange={e => emitChange({ season: e.target.value })}
+                    className={selectClasses}
+                    style={selectChevronStyle}
+                    data-testid="stats-season"
+                >
+                    {SEASON_OPTIONS.map(s => (
+                        <option key={s} value={s} className="bg-hky-black text-white">{s}</option>
+                    ))}
+                </select>
+            </div>
 
             {/* ── Quick-add presets ── */}
             <div className="flex flex-col gap-2">
