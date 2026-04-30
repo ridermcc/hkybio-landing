@@ -9,29 +9,21 @@ export default function Home() {
 
         {/* Main headline */}
         <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 animate-fade-up delay-100">
+          <h1 className="text-5xl sm:text-6xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 animate-fade-up delay-100">
             The link in bio
             <br />
-            <span className="text-gradient">for hockey.</span>
+            for hockey.
           </h1>
 
           <p className="text-base sm:text-xl text-hky-muted mb-8 sm:mb-12 animate-fade-up delay-200 max-w-lg mx-auto">
-            Personal branding is becoming important in hockey. We want to help you control it.
+            Your name. Your brand. Your career.
+            <br />
+            Connect it all with one link.
           </p>
 
           {/* CTA — Claim Username Input */}
           <div id="claim" className="relative z-10 mb-8 sm:mb-12 animate-fade-up delay-300">
             <ClaimUsernameInput />
-          </div>
-
-          {/* Coming Soon Badge - Bottom of screen */}
-          <div className="flex justify-center animate-fade-up delay-400">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-hky-surface border border-white/10">
-              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-ice-600 animate-pulse"></span>
-              <span className="text-[10px] sm:text-xs font-medium text-hky-muted">
-                Launching April 2026
-              </span>
-            </div>
           </div>
         </div>
       </div>

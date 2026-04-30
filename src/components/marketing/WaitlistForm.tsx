@@ -161,7 +161,7 @@ export default function WaitlistForm() {
           <p className="text-hky-muted mb-6 text-lg">
             Thanks {formData.full_name ? formData.full_name.split(' ')[0] : ''}! We&apos;ll email you when hky.bio launches.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-hky-surface border border-white/10 text-sm text-hky-muted">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-hky-black border border-white/10 text-sm text-hky-muted">
             <span className="w-2 h-2 rounded-full bg-ice-600 animate-pulse"></span>
             Position #{Math.floor(Math.random() * 50) + 480} in line
           </div>
@@ -184,7 +184,7 @@ export default function WaitlistForm() {
     <div className="w-full max-w-lg mx-auto">
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="h-1 bg-hky-surface rounded-full overflow-hidden">
+        <div className="h-1 bg-hky-black rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-ice-600 to-ice-800 transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
@@ -209,7 +209,7 @@ export default function WaitlistForm() {
             onChange={(e) => updateCurrentValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={currentStepData?.placeholder}
-            className="w-full text-center text-xl sm:text-2xl py-4 px-6 bg-transparent border-b-2 border-hky-surface focus:border-ice-600 outline-none transition-colors placeholder:text-hky-dim"
+            className="w-full text-center text-xl sm:text-2xl py-4 px-6 bg-transparent border-b-2 border-hky-black focus:border-ice-600 outline-none transition-colors placeholder:text-hky-dim"
             autoFocus
           />
 
@@ -225,7 +225,7 @@ export default function WaitlistForm() {
               <button
                 type="button"
                 onClick={handleBack}
-                className="flex-1 py-4 rounded-xl border border-white/10 text-hky-muted hover:bg-hky-surface transition-colors font-medium"
+                className="flex-1 py-4 rounded-xl border border-white/10 text-hky-muted hover:bg-hky-black transition-colors font-medium"
               >
                 ← Back
               </button>

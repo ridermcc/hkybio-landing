@@ -34,7 +34,6 @@ export async function POST(request: Request) {
 
             if (error) throw error;
 
-            if (error) throw error;
 
             // Sync with Resend Audience
             try {
@@ -116,7 +115,7 @@ export async function POST(request: Request) {
         console.error('API Error:', err);
         // Return generic error to client
         return NextResponse.json(
-            { error: err.message || 'Something went wrong' },
+            { error: 'Something went wrong' },
             { status: 500 }
         );
     }

@@ -60,7 +60,7 @@ export default function TopNav() {
                                 className="w-full px-4 py-3 flex items-center justify-between text-sm font-medium text-white/40 cursor-not-allowed select-none transition-colors hover:text-white/60 bg-white/5 rounded-xl border border-white/5"
                             >
                                 <span>Log in</span>
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-ice-700/20 text-ice-600">COMING SOON</span>
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white/80">COMING SOON</span>
                             </button>
                         </div>
                     </div>

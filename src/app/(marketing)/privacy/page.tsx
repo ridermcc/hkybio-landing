@@ -67,7 +67,7 @@ export default function PrivacyPage() {
                             <li>Request a copy of your data in a portable format</li>
                         </ul>
                         <p className="mt-3">
-                            To exercise any of these rights, contact us at <a href="mailto:privacy@hky.bio" className="text-ice-600 hover:underline">privacy@hky.bio</a>.
+                            To exercise any of these rights, contact us at <a href="mailto:privacy@hky.bio" className="text-white hover:underline">privacy@hky.bio</a>.
                         </p>
                     </section>
 
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
                     <section className="mb-8">
                         <h2 className="text-2xl font-bold mb-4 text-white">10. Contact Us</h2>
                         <p className="text-hky-muted leading-relaxed">
-                            If you have questions about this Privacy Notice or our data practices, please contact us at <a href="mailto:privacy@hky.bio" className="text-ice-600 hover:underline">privacy@hky.bio</a>.
+                            If you have questions about this Privacy Notice or our data practices, please contact us at <a href="mailto:privacy@hky.bio" className="text-white hover:underline">privacy@hky.bio</a>.
                         </p>
                     </section>
                 </div>

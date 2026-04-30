@@ -83,7 +83,7 @@ export default function TermsPage() {
                     <section>
                         <h2 className="text-xl font-semibold text-white mb-3">9. Termination</h2>
                         <p>
-                            We reserve the right to suspend or terminate your account at any time if you violate these Terms. You may delete your account and data at any time by contacting us at <a href="mailto:support@hky.bio" className="text-ice-600 hover:underline">support@hky.bio</a>.
+                            We reserve the right to suspend or terminate your account at any time if you violate these Terms. You may delete your account and data at any time by contacting us at <a href="mailto:support@hky.bio" className="text-white hover:underline">support@hky.bio</a>.
                         </p>
                     </section>
 
@@ -104,7 +104,7 @@ export default function TermsPage() {
                     <section>
                         <h2 className="text-xl font-semibold text-white mb-3">12. Contact Us</h2>
                         <p>
-                            For questions about these Terms, please contact us at <a href="mailto:support@hky.bio" className="text-ice-600 hover:underline">support@hky.bio</a>.
+                            For questions about these Terms, please contact us at <a href="mailto:support@hky.bio" className="text-white hover:underline">support@hky.bio</a>.
                         </p>
                     </section>
                 </div>
