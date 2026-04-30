@@ -24,6 +24,16 @@ interface PlayerLinkItemProps {
     onChange?: (data: LinkItemEditData) => void
 }
 
+function normalizeUrl(url: string | undefined | null): string {
+    if (!url) return '#'
+    const trimmed = url.trim()
+    if (!trimmed) return '#'
+    if (/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(trimmed) || trimmed.startsWith('mailto:') || trimmed.startsWith('tel:')) {
+        return trimmed
+    }
+    return `https://${trimmed}`
+}
+
 export function PlayerLinkItem({ size, link, isEditing = false, onChange }: PlayerLinkItemProps) {
     const activeSize = size === 'compact' ? 'compact' : 'standard'
     const [activeTab, setActiveTab] = React.useState<'none' | 'layout' | 'image' | 'analytics'>('none')
@@ -240,7 +250,7 @@ export function PlayerLinkItem({ size, link, isEditing = false, onChange }: Play
                 <div className="flex flex-col gap-3 px-4">
                     <div className="relative group/link">
                         <a
-                            href={link.linkUrl || '#'}
+                            href={normalizeUrl(link.linkUrl)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group flex items-center gap-3 rounded-xl bg-white/[0.06] backdrop-blur-xl border border-white/10 hover:border-white/30 hover:bg-white/[0.1] p-2.5 transition-all duration-300 ease-out hover:scale-[1.03] active:scale-[0.98] shadow-[0_12px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_40px_rgba(255,255,255,0.08)]"
@@ -282,7 +292,7 @@ export function PlayerLinkItem({ size, link, isEditing = false, onChange }: Play
         <section className="w-full py-1.5 lg:py-0">
             <div className="flex flex-col gap-3 px-4">
                 <div className="rounded-2xl overflow-hidden border border-white/10 backdrop-blur-xl hover:border-white/30 transition-all duration-300 ease-out relative group/link shadow-[0_16px_56px_rgba(0,0,0,0.6)] hover:shadow-[0_12px_40px_rgba(255,255,255,0.1)] hover:scale-[1.03] active:scale-[0.98]">
-                    <a href={link.linkUrl || '#'} target="_blank" rel="noopener noreferrer" className="block bg-white/[0.06] group hover:bg-white/[0.1] transition-colors">
+                    <a href={normalizeUrl(link.linkUrl)} target="_blank" rel="noopener noreferrer" className="block bg-white/[0.06] group hover:bg-white/[0.1] transition-colors">
                         <div className="w-full h-48 sm:h-56 bg-white/[0.03] flex items-center justify-center border-b border-white/[0.06] overflow-hidden relative">
                             {link.imageUrl ? (
                                 <img src={link.imageUrl} alt={link.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
