@@ -279,7 +279,7 @@ export function AddSocialPanel({ isOpen, onClose, existingLinks, initialPlatform
                                 {isExisting && (
                                     <button
                                         onClick={handleRemove}
-                                        className="flex-1 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg font-semibold text-[13px] transition-colors"
+                                        className="flex-1 py-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-white/70 hover:text-white rounded-lg font-semibold text-[13px] transition-colors"
                                     >
                                         Remove
                                     </button>
