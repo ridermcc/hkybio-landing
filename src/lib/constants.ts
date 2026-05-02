@@ -102,7 +102,7 @@ export const SOCIAL_PLATFORMS: SocialPlatformMeta[] = [
     }
   },
   { id: 'Skool', label: 'Skool', iconPath: '/social-icons-white/skool.png', inputPrompt: 'Enter Skool URL', inputPlaceholder: 'https://skool.com/...', inputType: 'url' },
-  { id: 'Website', label: 'Website / Other', iconPath: '/social-icons-white/website.png', inputPrompt: 'Enter Website URL', inputPlaceholder: 'https://...', inputType: 'url' },
+  { id: 'Website', label: 'Personal Website', iconPath: '/social-icons-white/website.png', inputPrompt: 'Enter Website URL', inputPlaceholder: 'https://...', inputType: 'url' },
 ];
 
 export function getPlatformIcon(platformName: string): string | null {

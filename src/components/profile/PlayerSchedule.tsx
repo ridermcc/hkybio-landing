@@ -129,7 +129,7 @@ export function PlayerSchedule({ playerId, scheduleUrl, games: initialGames = []
                 <div className="h-px bg-white/[0.06]" />
 
                 <div className="flex flex-col gap-2.5">
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 max-h-[420px] overflow-y-auto pr-1 -mr-1">
                         {games.length === 0 ? (
                             <div className="flex flex-col items-center justify-center py-10 px-4 border border-dashed border-white/[0.08] rounded-xl">
                                 <span className="text-white/30 text-[13px]">No games added. Click "Sync Games" or add manually.</span>
@@ -146,7 +146,7 @@ export function PlayerSchedule({ playerId, scheduleUrl, games: initialGames = []
                             }
 
                             return (
-                                <div key={index} className="flex flex-col bg-white/[0.03] rounded-xl border border-white/[0.08] relative group/game shadow-sm overflow-hidden transition-all">
+                                <div key={index} className="flex-shrink-0 flex flex-col bg-white/[0.03] rounded-xl border border-white/[0.08] relative group/game shadow-sm overflow-hidden transition-all">
                                     <div
                                         onClick={() => setExpandedGameIndex(isExpanded ? null : index)}
                                         className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white/[0.04] transition-colors ${isExpanded ? 'border-b border-white/[0.06] bg-white/[0.05]' : 'bg-transparent'}`}
@@ -173,7 +173,7 @@ export function PlayerSchedule({ playerId, scheduleUrl, games: initialGames = []
                                             <button
                                                 type="button"
                                                 onClick={(e) => { e.stopPropagation(); removeGame(index) }}
-                                                className={`w-6 h-6 rounded-full transition-colors flex items-center justify-center ${isExpanded ? 'text-red-400' : 'text-white/20 opacity-100 lg:opacity-0 lg:group-hover/game:opacity-100 hover:bg-red-500/10 hover:text-red-400'}`}
+                                                className={`w-6 h-6 rounded-full transition-colors flex items-center justify-center ${isExpanded ? 'text-white/70' : 'text-white/20 opacity-100 lg:opacity-0 lg:group-hover/game:opacity-100 hover:bg-white/[0.08] hover:text-white/70'}`}
                                                 title="Remove game"
                                             >
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -240,7 +240,7 @@ export function PlayerSchedule({ playerId, scheduleUrl, games: initialGames = []
                                                 <button
                                                     type="button"
                                                     onClick={(e) => { e.stopPropagation(); removeGame(index) }}
-                                                    className="text-[11px] font-bold text-red-500/80 hover:text-red-400 bg-red-500/10 px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors"
+                                                    className="text-[11px] font-bold text-white/70 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors"
                                                 >
                                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                                         <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
@@ -257,7 +257,7 @@ export function PlayerSchedule({ playerId, scheduleUrl, games: initialGames = []
                         <button
                             type="button"
                             onClick={addGame}
-                            className="flex items-center justify-center gap-2 py-2 mt-1 rounded-lg text-[13px] font-bold tracking-wide border border-dashed border-white/[0.15] text-white/40 hover:text-white hover:bg-white/[0.05] hover:border-white/[0.3] transition-all active:scale-[0.98]"
+                            className="flex-shrink-0 flex items-center justify-center gap-2 py-2 mt-1 rounded-lg text-[13px] font-bold tracking-wide border border-dashed border-white/[0.15] text-white/40 hover:text-white hover:bg-white/[0.05] hover:border-white/[0.3] transition-all active:scale-[0.98]"
                         >
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path d="M12 5v14M5 12h14" />
